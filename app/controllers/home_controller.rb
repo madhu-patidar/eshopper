@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     @banners = Banner.all
     @top_brands = Brand.take(10)
     @categories = Category.all
-    @category = Category.first
+    @category = Category.sub_categories.first
     @brands = Brand.all
     
     if params[:sub_category_id].present?
