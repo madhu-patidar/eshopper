@@ -1,7 +1,5 @@
 class AddColumnToProducts < ActiveRecord::Migration
   def change
-    remove_column :products, :status
-    add_column :products, :status, :integer
     rename_column :products, :description, :short_description
     add_column :products, :sku, :string
     add_column :products, :special_price, :decimal

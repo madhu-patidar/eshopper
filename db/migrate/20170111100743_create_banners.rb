@@ -3,7 +3,7 @@ class CreateBanners < ActiveRecord::Migration
     create_table :banners do |t|
       t.string :title
       t.text :context
-      t.string :status
+      t.boolean :status
 
       t.timestamps null: false
     end
