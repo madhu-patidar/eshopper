@@ -104,15 +104,8 @@
   text-align: center;
   margin: 0 0px 30px 40px;
 }
-/*.brand{
-  
-}*/
-/*.brand{
-  background:none;
-  color:#fdb45e;
-}
- */
+
  .category-products ul li a.brand{
- background:none;
+ background: none;
   color:#fdb45e;
 }
