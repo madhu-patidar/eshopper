@@ -1,0 +1,19 @@
+<% if @category.present? %>
+  <% if @sub_categories.present? %>
+    <% @sub_categories.each_with_index do |subcategory,index| %>
+      <li class="<%= "active" if index==0 %>">
+        <a data-toggle="tab" href="#<%=@category.id%>">
+          <% if @category.sub_categories.present? %>
+            <%= link_to(category_path(category_id: subcategory.id)) do%>
+              <% if subcategory.name.start_with?('<') %>
+                <%= subcategory.name.split(">")[1] %>
+              <% elsif %>
+                  <%= subcategory.name %>
+              <%end%>
+            <% end %>
+          <% end %>
+        </a>
+      </li>
+    <% end %>
+  <% end %>
+<% end %>

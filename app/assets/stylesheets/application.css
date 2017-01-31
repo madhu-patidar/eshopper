@@ -1,0 +1,118 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require font-awesome
+ *= require_tree .
+ *= require_self
+ *= require social-share-button
+ 
+ */
+ .btn-size{
+   width: 360px;
+   height: 40px
+ }
+ .or{
+  background: #FE980F;
+  border-radius: 40px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  height: 70px;
+  line-height: 50px;
+  margin-top: 40px;
+  text-align: center;
+  width: 70px;
+  border: 10px solid white;
+}
+
+.signup-seperator {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 2px;
+  margin: -10px 0 0 -182px;
+}
+.sigin{
+  margin-top: 40px;
+  margin-left: 30px;
+  border-left:1px solid grey;
+  height:290px
+}
+.signup{
+  margin-top: 40px;
+  margin-left: 30px;
+  border-left:1px solid grey;
+  height:400px
+}
+
+.signin-other {
+  height: 120px;
+  margin-top: 30px;
+  color: #fff;
+}
+.link_text_color{
+  color: #fff;
+}
+
+.signin-g {
+  background: #dc4b38;
+  height: 57px;
+  width: 320px;
+  padding-top: 17px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 0px 30px 40px;
+}
+.signup-g {
+  background: #dc4b38;
+  height: 57px;
+  width: 320px;
+  padding-top: 17px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  margin: 66px 0px 30px 40px;
+}
+
+.signin-f {
+  background: #48629b;
+ height: 57px;
+  width: 320px;
+  padding-top: 17px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 0px 30px 40px;
+}
+
+.signin-t {
+  background: #6ab0de;
+ height: 57px;
+  width: 320px;
+  padding-top: 17px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 0px 30px 40px;
+}
+/*.brand{
+  
+}*/
+/*.brand{
+  background:none;
+  color:#fdb45e;
+}
+ */
+ .category-products ul li a.brand{
+ background:none;
+  color:#fdb45e;
+}

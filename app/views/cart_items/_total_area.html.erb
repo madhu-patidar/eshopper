@@ -1,0 +1,10 @@
+<div class="total_area">
+  <ul>
+    <li>Cart Sub Total <span><%= @cart_sub_total %></span></li>
+    <li>Eco Tax <span><%= @tax %>  </span></li>
+    <li>Shipping Cost <span>Free</span></li>
+    <li>Total <span><%= @tax.to_i + @cart_sub_total.to_i %></span></li>
+  </ul>
+    <a class="btn btn-default update" href="">Update</a>
+    <a class="btn btn-default check_out" href="">Check Out</a>
+</div>

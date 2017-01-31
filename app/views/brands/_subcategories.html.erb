@@ -1,0 +1,21 @@
+<% if @category.present? %>
+  <% if @sub_categories.present? %>
+    <% @sub_categories.each_with_index do |subcategory,index| %>
+     <%if @sub.present?%>
+        <li class="<%= "active" if subcategory.id == @sub.id%>">
+      <%else%>
+         <li class="<%= "active" if index == 0%>">
+      <% end %>
+        <% if @category.sub_categories.present? %>
+          <%= link_to(category_brand_path(sub_category_id: subcategory.id)) do %>
+            <% if subcategory.name.start_with?('<') %>
+              <%= subcategory.name.split(">")[1] %>
+            <% elsif %>
+              <%= subcategory.name %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+<% end %>

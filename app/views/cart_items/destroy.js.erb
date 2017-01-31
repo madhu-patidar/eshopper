@@ -1,0 +1,3 @@
+$("#item-<%=@cart_item[:id]%>").remove();
+$('#total_area').html("<%= j (render partial: 'total_area',:locals => {:tax => @tax, :cart_sub_total => @cart_sub_total}) %>");
+$('#cart-item-count').html(" (" +<%= @cart_items.count %>+ " )" )
