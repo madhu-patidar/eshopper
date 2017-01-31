@@ -13,12 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20170119141744) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "banners", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
-    t.boolean  "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "status"
   end
 
   create_table "brand_categories", force: :cascade do |t|
@@ -28,8 +31,8 @@ ActiveRecord::Schema.define(version: 20170119141744) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "brand_categories", ["brand_id"], name: "index_brand_categories_on_brand_id"
-  add_index "brand_categories", ["category_id"], name: "index_brand_categories_on_category_id"
+  add_index "brand_categories", ["brand_id"], name: "index_brand_categories_on_brand_id", using: :btree
+  add_index "brand_categories", ["category_id"], name: "index_brand_categories_on_category_id", using: :btree
 
   create_table "brands", force: :cascade do |t|
     t.string   "name"
@@ -45,8 +48,8 @@ ActiveRecord::Schema.define(version: 20170119141744) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "cart_items", ["customer_id"], name: "index_cart_items_on_customer_id"
-  add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id"
+  add_index "cart_items", ["customer_id"], name: "index_cart_items_on_customer_id", using: :btree
+  add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -56,7 +59,7 @@ ActiveRecord::Schema.define(version: 20170119141744) do
     t.string   "status"
   end
 
-  add_index "categories", ["category_id"], name: "index_categories_on_category_id"
+  add_index "categories", ["category_id"], name: "index_categories_on_category_id", using: :btree
 
   create_table "coustomers", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -83,8 +86,8 @@ ActiveRecord::Schema.define(version: 20170119141744) do
     t.boolean  "admin",                  default: false
   end
 
-  add_index "customers", ["email"], name: "index_customers_on_email", unique: true
-  add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
+  add_index "customers", ["email"], name: "index_customers_on_email", unique: true, using: :btree
+  add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true, using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "imageable_id"
@@ -97,18 +100,18 @@ ActiveRecord::Schema.define(version: 20170119141744) do
     t.datetime "image_updated_at"
   end
 
-  add_index "pictures", ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id"
+  add_index "pictures", ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.decimal  "price"
     t.string   "short_description"
-    t.integer  "status"
     t.integer  "quantity"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "brand_id"
     t.integer  "category_id"
+    t.integer  "status"
     t.string   "sku"
     t.decimal  "special_price"
     t.text     "long_description"
@@ -117,7 +120,9 @@ ActiveRecord::Schema.define(version: 20170119141744) do
     t.text     "meta_keywords"
   end
 
-  add_index "products", ["brand_id"], name: "index_products_on_brand_id"
-  add_index "products", ["category_id"], name: "index_products_on_category_id"
+  add_index "products", ["brand_id"], name: "index_products_on_brand_id", using: :btree
+  add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
 
+  add_foreign_key "cart_items", "customers"
+  add_foreign_key "cart_items", "products"
 end
