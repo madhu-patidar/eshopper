@@ -6,7 +6,21 @@ class CartItemsController < ApplicationController
   # GET /cart_items
   # GET /cart_items.json
   def index
-    @cart_items = CartItem.all
+    @cart_sub_total,@cart_sub_total = 0,0
+    @cart_items = current_customer.cart_items
+    
+    @cart_items.each_with_index do |item,index|
+      @cart_sub_total += item.quantity*item.product.price
+    end
+    @shipping_cost = 0
+    @shipping_cost1 = @shipping_cost
+    
+    if @shipping_cost == 0
+      @shipping_cost1 = "Free"
+    end
+
+    @tax = (@cart_sub_total*1)/100
+    @total = @cart_sub_total + @shipping_cost + @tax
   end
 
   # GET /cart_items/1
@@ -20,7 +34,7 @@ class CartItemsController < ApplicationController
       @cart_sub_total += item.quantity*item.product.price
     end
 
-   @tax = (@cart_sub_total*7.5)/100
+   @tax = (@cart_sub_total*1)/100
 
   end
 
@@ -57,7 +71,7 @@ class CartItemsController < ApplicationController
       respond_to do |format|
         if @cart_item.save
           @product.quantity -= quantity
-          @product.save
+          # @product.save
           @cart_items = CartItem.where(customer_id: current_customer.id)
           format.html { redirect_to :back }
           format.js { }
@@ -89,28 +103,23 @@ class CartItemsController < ApplicationController
     end
     
     if params[:qty] == "minus" 
-      
       if @cart_item.quantity > 1
         @cart_item.quantity -= quantity
         @product.quantity += quantity
       end
 
     elsif params[:qty] == "plus"
-      
       if @product.quantity > 0
         @cart_item.quantity += quantity
         @product.quantity -= quantity
       end
 
     else
-      
       if quantity > 0
-        
         if @product.quantity >= quantity
           @cart_item.quantity = @cart_item.quantity + quantity
           @product.quantity -= quantity
         end
-
       else 
           @cart_item.quantity +=  quantity
           @product.quantity -= quantity
@@ -120,14 +129,26 @@ class CartItemsController < ApplicationController
 
     respond_to do |format|
       if @cart_item.save
-        @product.save
+        # @product.save
         @cart_items = CartItem.where(customer_id: current_customer.id)
 
-        @cart_items.each do |item|
+        @cart_sub_total,@cart_sub_total = 0,0
+        @cart_items = current_customer.cart_items
+        
+        @cart_items.each_with_index do |item,index|
           @cart_sub_total += item.quantity*item.product.price
         end
+        
+        @shipping_cost = 0
+        @shipping_cost1 = @shipping_cost
+        
+        if @shipping_cost == 0
+          @shipping_cost1 = "Free"
+        end
 
-        @tax = (@cart_sub_total*7.5)/100
+        @tax = (@cart_sub_total*1)/100
+        @total = @cart_sub_total + @shipping_cost + @tax
+
         format.html { redirect_to :back, notice: 'Cart item was successfully updated.' }
         format.js { }
         format.json { render :show, status: :ok, location: @cart_item }
@@ -148,11 +169,21 @@ class CartItemsController < ApplicationController
     @product.save
     @cart_items = current_customer.cart_items
       
-      @cart_items.each do |item|
-        @cart_sub_total += item.quantity*item.product.price
-      end
+    @cart_sub_total,@cart_sub_total = 0,0
+    @cart_items = current_customer.cart_items
+    
+    @cart_items.each_with_index do |item,index|
+      @cart_sub_total += item.quantity*item.product.price
+    end
+    @shipping_cost = 0
+    @shipping_cost1 = @shipping_cost
+    
+    if @shipping_cost == 0
+      @shipping_cost1 = "Free"
+    end
 
-    @tax = (@cart_sub_total*7.5)/100
+    @tax = (@cart_sub_total*1)/100
+    @total = @cart_sub_total + @shipping_cost + @tax
 
     respond_to do |format|
       format.html { redirect_to cart_item_url, notice: 'Cart item was successfully destroyed.' }
