@@ -59,31 +59,37 @@
                
                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                <li><a href="#"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                  <% if customer_signed_in? %>
+                <% if customer_signed_in? %>
+                  <% if current_page?checkouts_path %>
+                    <% active_checkout = "active" %>
+                  <% else %>
+                    <%active_checkout = ""%> 
+                  <%end%>
+                  <li><%= link_to(checkouts_path, class: "#{active_checkout}") do %><i class="fa fa-crosshairs"></i> Checkout</a></li><% end %>
+                <% end %>
+                <% if current_page?cart_items_path %>
+                  <% active1 = "active" %>
+                <% else %>
+                  <% active1 = ""%> 
+                <%end%>
 
-                    <% if current_page?cart_item_path(current_customer) %>
-                      <% active1 = "active" %>
-                    <% else %>
-                      <% active1 = ""%> 
-                    <%end%>
-
-                    <li id="hh">
-                      <%= link_to(cart_item_path(current_customer), class: "#{active1}") do %>
-                        <i class="fa fa-shopping-cart"></i> Cart<span id="cart-item-count"> (<%= current_customer.cart_items.count %>)</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(destroy_customer_session_path, :method => :delete) do %>  <i class="fa fa-sign-out"></i>Logout  
-                      <% end %>
-                    </li>
-                    <li>
-                      <% if current_customer.first_name.present? %>
-                        <%= link_to("#") do %><%= current_customer.first_name %><%end%>
-                      <% else %>
-                        <%= current_customer.email %>
-                      <% end %>
-                    </li>
+                <li>
+                  <%= link_to(cart_items_path, class: "#{active1}") do %>
+                    <i class="fa fa-shopping-cart"></i> Cart<span id="cart-item-count"><% if customer_signed_in? %> (<%= current_customer.cart_items.count %>)<% end %></span>
+                  <% end %>
+                </li>
+                <% if customer_signed_in? %>
+                <li>
+                  <%= link_to(destroy_customer_session_path, :method => :delete) do %>  <i class="fa fa-sign-out"></i>Logout  
+                  <% end %>
+                </li>
+                <li>
+                  <% if current_customer.first_name.present? %>
+                    <%= link_to("#") do %><%= current_customer.first_name %><%end%>
+                  <% else %>
+                    <%= current_customer.email %>
+                  <% end %>
+                </li>
                     
                 <%- elsif controller_name != 'sessions' %>
                   <li>
@@ -102,8 +108,8 @@
         </div>
       </div>
     </div><!--/header-middle-->
-  <h4 align="center"  ><%= notice %></h4>
-  <h4 align="center" ><%= alert %></h4>
+  <h4 align="center"  style="color:green;"><%= notice %></h4>
+  <h4 align="center" style="color:red;" ><%= alert %></h4>
         <% if controller_name != 'sessions'  && controller_name != 'registrations' %>
           <div class="header-bottom"><!--header-bottom-->
             <div class="container">
@@ -129,11 +135,10 @@
                         <li><%= link_to "Home", root_path, class: "#{active}" %></li>
                         <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                           <ul role="menu" class="sub-menu">
-                              <li><a href="#">Products</a></li>
+                              <li><%= link_to(products_path) do %>Products<% end %></li>
                               <li><a href="#">Product Details</a></li> 
-                              <li><a href="#">Checkout</a></li> 
-                              <li><a href="#">Cart</a></li> 
-                              <li><a href="#">Login</a></li> 
+                              <li><%= link_to(checkouts_path) do %>Checkout<% end %></li> 
+                              <li><%=link_to(cart_items_path) do %>Cart<% end %></li> 
                           </ul>
                         </li> 
                         <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
