@@ -1,31 +1,100 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Cart Items</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Customer</th>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @cart_items.each do |cart_item| %>
-      <tr>
-        <td><%= cart_item.customer %></td>
-        <td><%= cart_item.product %></td>
-        <td><%= cart_item.quantity %></td>
-        <td><%= link_to 'Show', cart_item %></td>
-        <td><%= link_to 'Edit', edit_cart_item_path(cart_item) %></td>
-        <td><%= link_to 'Destroy', cart_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Cart item', new_cart_item_path %>
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%= link_to(root_path) do %>Home<% end %></li>
+        <li class="active">Shopping Cart</li>
+      </ol>
+    </div>
+    <div class=" cart_info">
+      
+        <table class="table table-condensed">
+          <thead>
+            <tr class="cart_menu">
+              <td class="image">Item</td>
+              <td class="description"></td>
+              <td class="price">Price</td>
+              <td class="quantity">Quantity</td>
+              <td class="total">Total</td>
+              <td></td>
+            </tr>
+          </thead>
+              <% @cart_items.each do |item|%>
+                <tr id="item-<%=item.id %>">
+                   <%= render "cart_item", item: item %>
+                </tr>
+              <% end %>
+          </tbody>
+        </table>
+     
+    </div>
+  </div>
+</section> <!--/#cart_items-->
+<section id="do_action">
+  <div class="container">
+    <div class="heading">
+      <h3>What would you like to do next?</h3>
+      <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="chose_area">
+          <ul class="user_option">
+            <li>
+              <input type="checkbox">
+              <label>Use Coupon Code</label>
+            </li>
+            <li>
+              <input type="checkbox">
+              <label>Use Gift Voucher</label>
+            </li>
+            <li>
+              <input type="checkbox">
+              <label>Estimate Shipping & Taxes</label>
+            </li>
+          </ul>
+          <ul class="user_info">
+            <li class="single_field">
+              <label>Country:</label>
+              <select>
+                <option>United States</option>
+                <option>Bangladesh</option>
+                <option>UK</option>
+                <option>India</option>
+                <option>Pakistan</option>
+                <option>Ucrane</option>
+                <option>Canada</option>
+                <option>Dubai</option>
+              </select>
+              
+            </li>
+            <li class="single_field">
+              <label>Region / State:</label>
+              <select>
+                <option>Select</option>
+                <option>Dhaka</option>
+                <option>London</option>
+                <option>Dillih</option>
+                <option>Lahore</option>
+                <option>Alaska</option>
+                <option>Canada</option>
+                <option>Dubai</option>
+              </select>
+            
+            </li>
+            <li class="single_field zip-field">
+              <label>Zip Code:</label>
+              <input type="text">
+            </li>
+          </ul>
+          <a class="btn btn-default update" href="">Get Quotes</a>
+          <a class="btn btn-default check_out" href="">Continue</a>
+        </div>
+      </div>
+      <div class="col-sm-6" id="total_area">
+        <%=render "total_area"%>
+      </div>
+    </div>
+  </div>
+</section><!--/#do_action-->
+   

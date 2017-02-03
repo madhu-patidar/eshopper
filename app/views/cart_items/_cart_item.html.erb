@@ -5,7 +5,6 @@
 <td class="cart_description" >
   <div class="tb_data">
     <h5 ><%= link_to product_path(item.product) do %><%=item.product.name%><% end %></h5>
-    <p >Web ID: (<%= rand(1000000..99999999) %>)</p>
   </div>
 </td>
 <td class="cart_price tb_data">
@@ -15,11 +14,11 @@
   <div class="cart_quantity_button">
     <% but_disable1 = item.quantity == 1 ? "disabled" : ""%>
     <% but_disable2 = item.product.quantity == 0 ? "disabled" : ""%>
-    <%= link_to(cart_item_path(item, qty: "plus", product_id: item.product.id), class: "cart_quantity_up btn #{but_disable2}", :method => :put, remote: true) do %> + <% end %>
+    <%= link_to(cart_item_path(item, qty: "plus",product_id: item.product.id), class: "cart_quantity_up btn #{but_disable2}", :method => :put, remote: true) do %> + <% end %>
 
     <%= number_field_tag :quantity, "#{item.quantity}", class: "cart_quantity_input", id: "cart-item-#{item.id}", min: 1, max:"#{item.quantity+item.product.quantity}" , onfocusout: "update_quantity(#{item.id}, #{item.product.id},1, #{item.quantity+item.product.quantity}, #{item.quantity})" %>
 
-   <%= link_to(cart_item_path(item, qty: "minus", product_id: item.product.id), class: "cart_quantity_up btn #{but_disable1}", :method => :put, remote: true) do %> - <% end %>
+   <%= link_to(cart_item_path(item, qty: "minus",product_id: item.product.id), class: "cart_quantity_up btn #{but_disable1} ", :method => :put, remote: true) do %> - <% end %>
   </div>
 </td>
 <td class="cart_total">

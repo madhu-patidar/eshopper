@@ -2,9 +2,9 @@
   <ul>
     <li>Cart Sub Total <span><%= @cart_sub_total %></span></li>
     <li>Eco Tax <span><%= @tax %>  </span></li>
-    <li>Shipping Cost <span>Free</span></li>
-    <li>Total <span><%= @tax.to_i + @cart_sub_total.to_i %></span></li>
+    <li>Shipping Cost <span><%=  @shipping_cost1 %></span></li>
+    <li>Total <span><%= @total %></span></li>
   </ul>
-    <a class="btn btn-default update" href="">Update</a>
-    <%= link_to(checkouts_path, class: "btn btn-default check_out") do %>Check Out<% end %>
+    <a class="btn btn-default update" href="#">Update</a>
+      <%= link_to(checkouts_path, class: "btn btn-default check_out") do %>Check Out<% end %>
 </div>

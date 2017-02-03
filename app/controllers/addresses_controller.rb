@@ -24,24 +24,24 @@ class AddressesController < ApplicationController
   # POST /addresses
   # POST /addresses.json
   def create
-   
-
-  if params[:address][:billing].present?
-    @address1 = Address.new(billing_params)
-  end
-  if params[:address][:shipping].present?
-    @address2 = Address.new(shipping_params)
-  end
-      
-  respond_to do |format|
-    if @address2.save && @address1.save
-      format.html { redirect_to :back, notice: 'Address was successfully created.' }
-      format.json { render :show, status: :created, location: @address }
-    else
-      format.html { render :new }
-      format.json { render json: @address.errors, status: :unprocessable_entity }
+     
+    if params[:address][:billing].present?
+      @address1 = Address.new(billing_params)
     end
-  end
+
+    if params[:address][:shipping].present?
+      @address2 = Address.new(shipping_params)
+    end
+        
+    respond_to do |format|
+      if @address2.save && @address1.save
+        format.html { redirect_to :back, notice: 'Address was successfully created.' }
+        format.json { render :show, status: :created, location: @address }
+      else
+        format.html { render :new }
+        format.json { render json: @address.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /addresses/1
