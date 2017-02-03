@@ -14,6 +14,7 @@
  *= require_tree .
  *= require_self
  *= require social-share-button
+ *= require chosen
  
  */
  .btn-size{
@@ -27,7 +28,6 @@
   font-size: 16px;
   height: 70px;
   line-height: 50px;
-  margin-top: 40px;
   text-align: center;
   width: 70px;
   border: 10px solid white;
@@ -104,8 +104,19 @@
   text-align: center;
   margin: 0 0px 30px 40px;
 }
-
- .category-products ul li a.brand{
- background: none;
+/*.brand{
+  
+}*/
+/*.brand{
+  background:none;
   color:#fdb45e;
+}
+ */
+ .category-products ul li a.brand{
+ background:none;
+  color:#fdb45e;
+}
+.checkout-total{
+  border:none;
+
 }
