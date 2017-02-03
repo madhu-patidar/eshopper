@@ -24,20 +24,26 @@
 // });
 
 
-function update_quantity(cart_item_id,product_id,min,max,qty) { 
+function update_quantity(cart_item_id,product_id,min,max,qty) 
+{ 
   var quantity = $("#cart-item-"+cart_item_id).val();
-  if (quantity <= max && quantity >= min) {
+
+  if (quantity <= max && quantity >= min) 
+  {
     $.ajax({
       type: "PUT",
       url: "/cart_items/"+cart_item_id,
       dataType : 'script',
       data: {'product_id':product_id,'quantity' :quantity}
-    });}
-    else {
-      $("#cart-item-"+cart_item_id).val(qty);
-      alert("Quantity should be between "+min+"and "+max)
-    };
-}
+    });
+  }
+  else 
+  {
+    $("#cart-item-"+cart_item_id).val(qty);
+    alert("Quantity should be between "+min+"and "+max)
+  };
+};
+
 
 $(document).ready(function(){ 
     $('#check-address').click(function(){
