@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119141744) do
+ActiveRecord::Schema.define(version: 20170202061532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "customer_id"
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "zipcode"
+    t.string   "address_type"
+    t.string   "name"
+    t.string   "mobile_number"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "addresses", ["customer_id"], name: "index_addresses_on_customer_id", using: :btree
 
   create_table "banners", force: :cascade do |t|
     t.string   "title"
@@ -60,6 +77,11 @@ ActiveRecord::Schema.define(version: 20170119141744) do
   end
 
   add_index "categories", ["category_id"], name: "index_categories_on_category_id", using: :btree
+
+  create_table "checkouts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "coustomers", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -123,6 +145,7 @@ ActiveRecord::Schema.define(version: 20170119141744) do
   add_index "products", ["brand_id"], name: "index_products_on_brand_id", using: :btree
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
 
+  add_foreign_key "addresses", "customers"
   add_foreign_key "cart_items", "customers"
   add_foreign_key "cart_items", "products"
 end
