@@ -65,7 +65,7 @@
                In Stock <% else %> Out Of Stock<% end %> </p>
               <p><b>Condition:</b> New</p>
               <p><b>Brand:</b> <%= @product.brand.name.upcase %></p>
-             <p><%= social_share_button_tag(@product.name, :url => "https://www.flipkart.com/samsung-gear-fit-2-pink-smartband/p/itmem96dd49qgxae?pid=SMWEHFT8WF3FRK32&srno=b_1_3&otracker=browse&lid=LSTSMWEHFT8WF3FRK32UT9PMI") %></p>
+             <p><%= social_share_button_tag(@product.name, :url => "http://madhu-eshopper.herokuapp.com/products/#{@product.id}") %></p>
             </div><!--/product-information-->
           </div>
         </div><!--/product-details-->
