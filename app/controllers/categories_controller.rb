@@ -16,8 +16,10 @@ class CategoriesController < ApplicationController
     if params[:category_id].present?
       @sub = Category.find(params[:category_id])
       @products = Product.where(category_id: params[:category_id])
-    else
+    elsif  @category.sub_categories.present?
       @products = Product.where(category_id: @category.sub_categories.first.id)
+    else
+       @products = Product.where(category_id: @category.id)
     end
 
     @categories = Category.all
