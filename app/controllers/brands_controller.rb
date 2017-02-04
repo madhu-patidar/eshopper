@@ -22,8 +22,8 @@ class BrandsController < ApplicationController
       @products = Product.where(category_id: params[:sub_category_id], brand_id: params[:id])
     elsif @sub_categories.present?
         @products = Product.where(category_id: @sub_categories.first.id,brand_id: params[:id])
-    else
-      @products = Product.where(category_id: @category.sub_categories.first.id,brand_id: params[:id])
+    # elsif 
+    #   @products = Product.where(category_id: @category.sub_categories.first.id,brand_id: params[:id])
     end
    
   end
