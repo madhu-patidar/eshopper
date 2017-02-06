@@ -4,13 +4,17 @@ class HomeController < ApplicationController
     @banners = Banner.all
     @top_brands = Brand.take(10)
     @categories = Category.all
-    @category = Category.first
     @brands = Brand.all
+    @category = Category.first
+    
+    if @category.present?
+      @category = @category.sub_categories.first
+    end
     
     if params[:sub_category_id].present?
       @sub = Category.find(params[:sub_category_id])
       @products = Product.where(category_id: params[:sub_category_id])
-    else
+    elsif @category.present?
       @products = Product.where(category_id: @category.id)
     end
 
