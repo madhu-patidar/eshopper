@@ -111,25 +111,21 @@ class CartItemsController < ApplicationController
     elsif params[:qty] == "plus"
       if @product.quantity > 0
         @cart_item.quantity += quantity
-        @product.quantity -= quantity
       end
 
     else
       if quantity > 0
         if @product.quantity >= quantity
           @cart_item.quantity = @cart_item.quantity + quantity
-          @product.quantity -= quantity
         end
       else 
           @cart_item.quantity +=  quantity
-          @product.quantity -= quantity
       end
 
     end
 
     respond_to do |format|
       if @cart_item.save
-        # @product.save
         @cart_items = CartItem.where(customer_id: current_customer.id)
 
         @cart_sub_total,@cart_sub_total = 0,0

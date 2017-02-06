@@ -114,11 +114,11 @@
 /*.brand{
   
 }*/
-/*.brand{
+.brands-name ul li a.brand{
   background:none;
   color:#fdb45e;
 }
- */
+ 
  .category-products ul li a.brand{
  background:none;
   color:#fdb45e;
