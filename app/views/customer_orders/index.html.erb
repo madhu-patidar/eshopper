@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Customer Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Address</th>
+      <th>Status</th>
+      <th>Grand total</th>
+      <th>Shipping charges</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customer_orders.each do |customer_order| %>
+      <tr>
+        <td><%= customer_order.customer %></td>
+        <td><%= customer_order.address %></td>
+        <td><%= customer_order.status %></td>
+        <td><%= customer_order.grand_total %></td>
+        <td><%= customer_order.shipping_charges %></td>
+        <td><%= link_to 'Show', customer_order %></td>
+        <td><%= link_to 'Edit', edit_customer_order_path(customer_order) %></td>
+        <td><%= link_to 'Destroy', customer_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Customer order', new_customer_order_path %>

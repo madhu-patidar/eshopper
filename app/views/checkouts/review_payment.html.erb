@@ -41,8 +41,9 @@
       </div>
       <div class="cuntinue-payment-button row">
         <div class="col-sm-4 col-sm-offset-5">
-          <%= button_tag "Continue Payment", class: "btn btn-default"%>
-          <%= link_to "ABC", new_charge_path %>
+          <%= button_tag(class: "btn btn-default continue-button") do %>
+            <%= link_to "Continue To Pay", new_charge_path(address_id: @address.id) %>
+          <%end%>
         </div>
       <div>
     </div>
