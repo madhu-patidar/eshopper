@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
     end
 
     @categories = Category.all
-    @brand = Brand.find(params[:id])
+    
     @sub_categories = @category.sub_categories
   end
 
