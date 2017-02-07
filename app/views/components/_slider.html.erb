@@ -9,7 +9,6 @@
             <% end %>
           </ol>
           <div class="carousel-inner">
-            <%if @banners.present?%>
               <% @banners.each_with_index do |banner, index| %>
                 <%if banner.status == true %>
                   <div class="item <%= index == 0 ? 'active' : ''%>" >
@@ -20,13 +19,17 @@
                       <button type="button" class="btn btn-default get">Get it now</button>
                     </div>
                     <div class="col-sm-6">
-                       <%= image_tag(banner.pictures.first.image.url, class: 'girl img-responsive') %>
-                      <%= image_tag(banner.pictures.second.image.url,  class: "pricing")%>
+                      <%if banner.pictures.first.present? %>
+                        <%= image_tag(banner.pictures.first.image.url, class: 'girl img-responsive') %>
+                       <% end %>
+                       <%if banner.pictures.second.present? %>
+                        <%= image_tag(banner.pictures.second.image.url,  class: "pricing")%>
+                        <% end %>
                     </div>
                   </div>
                 <% end %>
               <% end %>
-            <% end %>
+            
           </div>
           <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
             <i class="fa fa-angle-left"></i>
