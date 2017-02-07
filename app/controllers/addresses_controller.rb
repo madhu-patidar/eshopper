@@ -24,17 +24,9 @@ class AddressesController < ApplicationController
   # POST /addresses
   # POST /addresses.json
   def create
-     
-    if params[:address][:billing].present?
-      @address1 = Address.new(billing_params)
-    end
-
-    if params[:address][:shipping].present?
-      @address2 = Address.new(shipping_params)
-    end
-        
+    @address = Address.new(address_params) 
     respond_to do |format|
-      if @address2.save && @address1.save
+      if @address.save
         format.html { redirect_to :back, notice: 'Address was successfully created.' }
         format.json { render :show, status: :created, location: @address }
       else
@@ -49,7 +41,7 @@ class AddressesController < ApplicationController
   def update
     respond_to do |format|
       if @address.update(address_params)
-        format.html { redirect_to @address, notice: 'Address was successfully updated.' }
+        format.html { redirect_to  checkouts_path }
         format.json { render :show, status: :ok, location: @address }
       else
         format.html { render :edit }
@@ -64,6 +56,7 @@ class AddressesController < ApplicationController
     @address.destroy
     respond_to do |format|
       format.html { redirect_to addresses_url, notice: 'Address was successfully destroyed.' }
+      format.js {  }
       format.json { head :no_content }
     end
   end
@@ -75,18 +68,12 @@ class AddressesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def billing_params
-      params[:address][:billing][:country] = params[:country]
-      params[:address][:billing][:state] = params[:state]
-      params[:address][:billing].permit(:customer_id, :address_1, :address_2, :city, :state, :country, :zipcode, :address_type, :name, :mobile_number)
-    end
+    
 
-    def shipping_params
+    def address_params
        # params[:address][:shipping].fetch(:addres, {})
-      params[:address][:shipping][:country] = params[:address][:country]
-      params[:address][:shipping][:state] = params[:address][:state]
-      puts  params[:address][:shipping]
-      params[:address][:shipping].permit(:customer_id, :address_1, :address_2, :city, :state, :country, :zipcode, :address_type, :name, :mobile_number)
+     
+      params[:address].permit(:customer_id, :address_1, :address_2, :city, :state, :country, :zipcode, :address_type, :name, :mobile_number)
        
     end
 end

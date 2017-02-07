@@ -5,6 +5,11 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
+    @banners = Banner.all
+    @top_brands = Brand.take(10)
+    @categories = Category.all
+    @category = Category.first
+    @brands = Brand.all
   end
 
   # GET /products/1
@@ -14,8 +19,6 @@ class ProductsController < ApplicationController
     @top_brands = Brand.take(10)
     @category = @product.category
     @cart_item = CartItem.new
-
-
   end
 
   # GET /products/new
@@ -31,7 +34,6 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product }
@@ -46,7 +48,6 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
@@ -56,19 +57,16 @@ class ProductsController < ApplicationController
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
     @product.destroy
-
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
-    
   end
 
   private

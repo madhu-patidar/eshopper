@@ -23,21 +23,8 @@ class CartItemsController < ApplicationController
     @total = @cart_sub_total + @shipping_cost + @tax
   end
 
-  # GET /cart_items/1
-  # GET /cart_items/1.json
-  def show
 
-    @cart_sub_total,@cart_sub_total = 0,0
-    @cart_items = CartItem.where(customer_id: current_customer.id)
-    
-    @cart_items.each_with_index do |item,index|
-      @cart_sub_total += item.quantity*item.product.price
-    end
-
-   @tax = (@cart_sub_total*1)/100
-
-  end
-
+ 
   # GET /cart_items/new
   def new
     @cart_item = CartItem.new
@@ -91,7 +78,6 @@ class CartItemsController < ApplicationController
   # PATCH/PUT /cart_items/1
   # PATCH/PUT /cart_items/1.json
   def update
-
     quantity, @cart_sub_total = 1,0
     @cart_item = CartItem.find(params[:id])
     @product = Product.find(params[:product_id])
@@ -105,7 +91,6 @@ class CartItemsController < ApplicationController
     if params[:qty] == "minus" 
       if @cart_item.quantity > 1
         @cart_item.quantity -= quantity
-        @product.quantity += quantity
       end
 
     elsif params[:qty] == "plus"
@@ -115,9 +100,7 @@ class CartItemsController < ApplicationController
 
     else
       if quantity > 0
-        if @product.quantity >= quantity
-          @cart_item.quantity = @cart_item.quantity + quantity
-        end
+          @cart_item.quantity += quantity
       else 
           @cart_item.quantity +=  quantity
       end

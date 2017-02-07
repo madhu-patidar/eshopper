@@ -1,9 +1,9 @@
 <div class="total_area">
   <ul>
-    <li>Cart Sub Total <span><%= @cart_sub_total %></span></li>
+    <li>Cart Sub Total <span> <%= @cart_sub_total %></span></li>
     <li>Eco Tax <span><%= @tax %>  </span></li>
     <li>Shipping Cost <span><%=  @shipping_cost1 %></span></li>
-    <li>Total <span><%= @total %></span></li>
+    <li>Total <span>&#8377; <%= @total %></span></li>
   </ul>
     <a class="btn btn-default update" href="#">Update</a>
       <%= link_to(checkouts_path, class: "btn btn-default check_out") do %>Check Out<% end %>

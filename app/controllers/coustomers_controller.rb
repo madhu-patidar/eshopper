@@ -25,7 +25,6 @@ class CoustomersController < ApplicationController
   # POST /coustomers.json
   def create
     @coustomer = Coustomer.new(coustomer_params)
-
     respond_to do |format|
       if @coustomer.save
         format.html { redirect_to @coustomer, notice: 'Coustomer was successfully created.' }
@@ -40,7 +39,6 @@ class CoustomersController < ApplicationController
   # PATCH/PUT /coustomers/1
   # PATCH/PUT /coustomers/1.json
   def update
-
     respond_to do |format|
       if @coustomer.update(coustomer_params)
         format.html { redirect_to @coustomer, notice: 'Coustomer was successfully updated.' }
@@ -50,19 +48,16 @@ class CoustomersController < ApplicationController
         format.json { render json: @coustomer.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   # DELETE /coustomers/1
   # DELETE /coustomers/1.json
   def destroy
     @coustomer.destroy
-
     respond_to do |format|
       format.html { redirect_to coustomers_url, notice: 'Coustomer was successfully destroyed.' }
       format.json { head :no_content }
     end
-    
   end
 
   private
@@ -73,7 +68,6 @@ class CoustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def coustomer_params
-      
       params.require(:customer).permit(:email,:first_name,:last_name, :admin)
     end
 end

@@ -8,21 +8,19 @@
             <%= devise_error_messages! %>
             <%= f.text_field :first_name, autofocus: true, placeholder: "First Name" %>
             <%= f.text_field :last_name, autofocus: true, placeholder: "Last Name" %>
-            <%= f.email_field :email, autofocus: true, placeholder: "Email Address" %>
+            <%= f.email_field :email, autofocus: true, placeholder: "Email Address *" %>
            
-            <%= f.password_field :password, autocomplete: "off",placeholder:"Password" %>
-            <%= f.password_field :password_confirmation, autocomplete: "off",placeholder:"Confirm-Password" %>
+            <%= f.password_field :password, autocomplete: "off", placeholder:"Password *" %>
+            <%= f.password_field :password_confirmation, autocomplete: "off",placeholder:"Confirm-Password *" %>
             <span>
-              <%= f.check_box :remember_me,class:"checkbox" %>
+              <%= f.check_box :remember_me, class:"checkbox" %>
               Keep me signed in
-            </span><%= f.button "Sign Up",type: "submit", class:"btn btn-default btn-size" %>
+            </span><%= f.button "Sign Up", type: "submit", class: "btn btn-default" %>
           <% end %>
-            
         </div><!--/signup form-->
       </div>
-      
-     <div class="col-sm-4">
-      <div class="signup">
+      <div class="col-sm-4">
+        <div class="signup">
         <span class="or signup-seperator">OR</span>
         <div class="col-sm-12 signin-other">
           <div class='signup-g'>
@@ -41,7 +39,7 @@
             <% end %>
           </div>
         </div>
-      </div>
+        </div>
     </div>
     </div>
   </div>

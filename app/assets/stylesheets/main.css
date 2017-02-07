@@ -1489,17 +1489,20 @@ h2.title {
   margin-top: 23px;
 }
 
-.login-form form button, .signup-form form button {
+.login-form form button, .signup-form form button, .create-address button, .cuntinue-payment-button button {
   background: #FE980F;
   border: medium none;
-  border-radius: 0;
+  border-radius: 8;
   color: #FFFFFF;
   display: block;
   font-family: 'Roboto', sans-serif;
   padding: 6px 25px;
 }
+.create-address button {
+  margin-top: 23px;
+}
 
- .signup-form form button {
+.signup-form form button {
   background: #FE980F;
   border: medium none;
   border-radius: 0;
@@ -1509,9 +1512,11 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   padding: 6px 25px;
 }
+
 .form-one button{
-margin-top: 23px;
+  margin-top: 23px;
 }
+
 .form-one button {
   background: #FE980F;
   border: medium none;

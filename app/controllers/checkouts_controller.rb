@@ -1,27 +1,14 @@
 class CheckoutsController < ApplicationController
   before_action :set_checkout, only: [:edit, :update, :destroy]
   before_action :authenticate_customer!
+  before_action :set_amount, only: [:index, :review_payment]
 
   # GET /checkouts
   # GET /checkouts.json
   def index
+    @customer_addresses = current_customer.addresses.last(3)
     @address = Address.new
     @checkouts = Checkout.all
-    @cart_sub_total,@cart_sub_total = 0,0
-    @cart_items = current_customer.cart_items
-    
-    @cart_items.each_with_index do |item,index|
-      @cart_sub_total += item.quantity*item.product.price
-    end
-    @shipping_cost = 0
-    @shipping_cost1 = @shipping_cost
-    
-    if @shipping_cost == 0
-      @shipping_cost1 = "Free"
-    end
-
-    @tax = (@cart_sub_total*1)/100
-    @total = @cart_sub_total + @shipping_cost + @tax
   end
 
   # GET /checkouts/1
@@ -34,6 +21,9 @@ class CheckoutsController < ApplicationController
     @checkout = Checkout.new
   end
 
+  def review_payment
+    @address = Address.find(params[:address_id])
+  end
   # GET /checkouts/1/edit
   def edit
   end
@@ -42,7 +32,6 @@ class CheckoutsController < ApplicationController
   # POST /checkouts.json
   def create
     @checkout = Checkout.new(checkout_params)
-    
     respond_to do |format|
       if @checkout.save
         format.html { redirect_to @checkout, notice: 'Checkout was successfully created.' }
@@ -88,4 +77,22 @@ class CheckoutsController < ApplicationController
     def checkout_params
       params.fetch(:checkout, {})
     end
+
+    def set_amount
+      @cart_sub_total,@cart_sub_total = 0,0
+      @cart_items = current_customer.cart_items
+      @shipping_cost = 0
+      @shipping_cost1 = @shipping_cost
+      
+      if @shipping_cost == 0
+        @shipping_cost1 = "Free"
+      end
+      
+      @cart_items.each_with_index do |item,index|
+        @cart_sub_total += item.quantity*item.product.price
+      end
+      
+      @tax = (@cart_sub_total*1)/100
+      @total = @cart_sub_total + @shipping_cost + @tax
+  end
 end

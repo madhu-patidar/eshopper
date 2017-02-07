@@ -3,12 +3,16 @@ Rails.application.routes.draw do
   
   resources :addresses
   resources :checkouts
+  get 'review_payment', to: "checkouts#review_payment"
+   
   resources :cart_items
   resources :products
   resources :categories do
     resources :brands
   end
-   resources :brands
+  resources :brands
+  resources :charges
+  
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :customers, :controllers => { :omniauth_callbacks => "customers/omniauth_callbacks" }
 

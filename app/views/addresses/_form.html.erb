@@ -1,58 +1,36 @@
-<%= form_for(@address) do |f| %>
-  <% if @address.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@address.errors.count, "error") %> prohibited this address from being saved:</h2>
-
-      <ul>
-      <% @address.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="modal-dialog">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Edit Address</h4>
     </div>
-  <% end %>
+    <div class="modal-body">
+      <%= form_for @address do |f|%>
+        <div class="row">
 
-  <div class="field">
-    <%= f.label :customer_id %><br>
-    <%= f.text_field :customer_id %>
-  </div>
-  <div class="field">
-    <%= f.label :address_1 %><br>
-    <%= f.text_field :address_1 %>
-  </div>
-  <div class="field">
-    <%= f.label :address_2 %><br>
-    <%= f.text_field :address_2 %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state %>
-  </div>
-  <div class="field">
-    <%= f.label :country %><br>
-    <%= f.text_field :country %>
-  </div>
-  <div class="field">
-    <%= f.label :zipcode %><br>
-    <%= f.text_field :zipcode %>
-  </div>
-  <div class="field">
-    <%= f.label :address_type %><br>
-    <%= f.text_field :address_type %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :mobile_number %><br>
-    <%= f.text_field :mobile_number %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+          <div class="col-sm-6 col-sm-offset-3 billing-form">
+            <%= f.text_field "name", placeholder: "Name *"%>
+            <%= f.text_field "address_1",  placeholder: "Address 1 *"%>
+            <%= f.text_field "address_2",  placeholder: "Address 2"%>
+            <%= f.text_field "city", placeholder: "city *"%>
+            <%= f.text_field "zipcode", placeholder: "Zip / Postal Code *"%>
+            <%= f.select :country, CountryStateSelect::countries_collection, {}, id: 'country_id' %>
+            <%= f.text_field :state ,:id=>'state_name', placeholder: "State *" %>
+            <%= f.text_field "mobile_number", placeholder: "Mobile Phone"%>
+            <%= f.hidden_field "customer_id", value: "#{current_customer.id}"%>
+            <%= f.hidden_field "address_type", value: "billing"%>
+          </div>
+      
+          <div class="col-sm-3 col-sm-offset-4 form-one">
+            <%= f.button "Submit" %>
+          </div>
 
+        </div>
+      <% end %>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>

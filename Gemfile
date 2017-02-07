@@ -36,8 +36,9 @@ gem 'table_print'
 gem 'pry'
 gem 'social-share-button'
 gem 'pg'
-gem 'country_state_select', '3.0.0'
-
+gem 'country_state_select'
+gem 'chosen-rails'
+gem 'stripe'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

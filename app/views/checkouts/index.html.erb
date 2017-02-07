@@ -12,110 +12,57 @@
     <div class="shopper-informations">
       <div class="row">
         <div class="col-sm-12 clearfix">
-          <div class="bill-to">
-             <div class="row">
-              <div class="col-sm-4 col-sm-offset-1">
-                <p>Bill To</p>
-              </div>
-               <div class="col-sm-4 col-sm-offset-2">
-                <p>Shipping To</p>
+          <div class="bill-to create-address">
+            <div class="row">
+              <%if current_customer.addresses.present? %>
+                <%= render "address"%> 
+              <% end %>
+            </div>
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Add new Address</button>
+            </div>
+             <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Bill To</h4>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_for @address do |f|%>
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 billing-form">
+                          <%= f.text_field "name", placeholder: "Name *"%>
+                          <%= f.text_field "address_1",  placeholder: "Address 1 *"%>
+                          <%= f.text_field "address_2",  placeholder: "Address 2"%>
+                          <%= f.text_field "city", placeholder: "city *"%>
+                          <%= f.text_field "zipcode", placeholder: "Zip / Postal Code *"%>
+                           <%= f.select :country, CountryStateSelect::countries_collection, {}, id: 'country_id' %>
+                            <%= f.text_field :state ,:id=>'state_name', placeholder: "State *" %>
+                          <%= f.text_field "mobile_number", placeholder: "Mobile Phone"%>
+                          <%= f.hidden_field "customer_id", value: "#{current_customer.id}"%>
+                          <%= f.hidden_field "address_type", value: "billing"%>
+                        </div>
+                        <div class="col-sm-3 col-sm-offset-5 form-one">
+                          <%= f.button "Submit" %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            
-            <%= form_for @address, :html =>{ id: "form1"} do |f|%>
-              <div class="row">
-                <div class="col-sm-4 col-sm-offset-1 billing-form">
-                  <%= f.text_field "name", placeholder: "Name *", id: "name", name: "address[billing][name]" %>
-                   
-                  <%= f.text_field "address_1",  placeholder: "Address 1 *", id: "address-field", name: "address[billing][address_1]"%>
-                  <%= f.text_field "address_2",  placeholder: "Address 2", id: "address2-field", name: "address[billing][address_2]"%>
-                   <%= f.text_field "city", placeholder: "city *",id: "city", name: "address[billing][city]" %>
-                  <%= f.text_field "zipcode", placeholder: "Zip / Postal Code *",id: "zip", name: "address[billing][zipcode]" %>
-                   <%= f.select(:country, collection: CountryStateSelect.countries_collection, id: "country", name: "address[billing][country]") %>
-
-                  <%= options = { form: f, field_names: { :country => :country, :state => :state } }
-                   f.select(:state, CountryStateSelect.state_options(options)) %>
-                  <%= f.text_field "mobile_number", placeholder: "Mobile Phone", id: "mobile_number", name: "address[billing][mobile_number]" %>
-                  <%= f.hidden_field "customer_id", value: "#{current_customer.id}", name: "address[billing][customer_id]"%>
-               
-                  <%= f.hidden_field "address_type", value: "billing", name: "address[billing][address_type]"%>
-                </div>
-                <div class="col-sm-4 col-sm-offset-2 billing-form">
-               
-                  <%= f.text_field "name", placeholder: "Name *" ,id: "name1", name: "address[shipping][name]"%>
-                  <%= f.text_field "address_1",  placeholder: "Address 1 *", id: "address-field1", name: "address[shipping][address_1]"%>
-                  <%= f.text_field "address_2",  placeholder: "Address 2", id: "address2-field1", name: "address[shipping][address_2]"%>
-                  <%= f.text_field "city", placeholder: "city *",id: "city1", name: "address[shipping][city]" %>
-                  <%= f.text_field "zipcode", placeholder: "Zip / Postal Code *", id: "zip1", name: "address[shipping][zipcode]" %>
-                  <%= f.select(:country, collection: CountryStateSelect.countries_collection, id: "country1", name: "address[billing][country1]") %>
-                  <%= options = { form: f, field_names: { :country => :country, :state => :state } }
-                   f.select(:state, CountryStateSelect.state_options(options)) %>
-                  
-                  <%= f.text_field "mobile_number", placeholder: "Mobile Phone", id: "mobile_number1", name: "address[shipping][mobile_number]" %>
-                  <%= f.hidden_field "customer_id",value: "#{current_customer.id}", name: "address[shipping][customer_id]"%>
-                   <%= f.hidden_field "address_type",value: "shipping",  name: "address[shipping][address_type]"%>
-                  <span ><%= check_box_tag "check-address"%> <b> &nbsp; Same as Bill Address</b></span>
-                  
-                </div>
-                <div class="col-sm-3 col-sm-offset-5 form-one">
-                  <%= f.button "Submit" %>
-
-                </div>
-              </div>
-            <% end %>
           </div>
         </div>
       </div>
-      <div class="row">
-       
-      </div>
-      <div class="review-payment">
-        <h2>Review & Payment</h2>
-      </div>
-
-      <div class=" cart_info">
-        <table class="table table-condensed">
-          <thead>
-            <tr class="cart_menu">
-              <td class="image">Item</td>
-              <td class="description"></td>
-              <td class="price">Price</td>
-              <td class="quantity">Quantity</td>
-              <td class="total">Total</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            <% @cart_items.each do |item|%>
-                <tr id="item-<%=item.id %>">
-                   <%= render "cart_items/cart_item", item: item %>
-                </tr>
-              <% end %>
-              <td colspan="4">&nbsp;</td>
-              <td colspan="2">
-              <div id="checkout_total_area">
-                <%=render "total_area"%>
-              </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="payment-options">
-        <span>
-          <label><input type="checkbox"> Direct Bank Transfer</label>
-        </span>
-        <span>
-          <label><input type="checkbox"> Check Payment</label>
-        </span>
-        <span>
-          <label><input type="checkbox"> Paypal</label>
-        </span>
-      </div>
-    </div>
-  </div>
-  </section> <!--/#cart_items-->
+    <div class="row">   
+  </div> <!--/#cart_items-->
+</section>  
 
   
 
