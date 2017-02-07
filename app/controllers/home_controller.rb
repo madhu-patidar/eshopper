@@ -11,7 +11,7 @@ class HomeController < ApplicationController
       @sub = Category.find(params[:sub_category_id])
       @products = Product.where(category_id: params[:sub_category_id])
     else
-      @products = Product.where(category_id: 2)
+      @products = Product.where(category_id: @category.sub_categories.first.id)
     end
 
   end
