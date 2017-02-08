@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
 
   
+  resources :customer_orders
+  
+  resources :customer_orders do
+    member do
+      get 'payment'
+      get 'cancel_order'
+    end
+  end
+  resources :charges do
+    member do
+      get 'payment_success'
+    end
+  end
+
   resources :addresses
   resources :checkouts
   get 'review_payment', to: "checkouts#review_payment"
