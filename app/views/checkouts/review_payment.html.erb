@@ -13,15 +13,8 @@
 
       <div class=" cart_info">
         <table class="table table-condensed">
-          <thead>
-            <tr class="cart_menu">
-              <td class="image">Item</td>
-              <td class="description"></td>
-              <td class="price">Price</td>
-              <td class="quantity">Quantity</td>
-              <td class="total">Total</td>
-              <td></td>
-            </tr>
+           <thead id="checkout-table-head">
+            <%= render "table_head" %>
           </thead>
           <tbody>
             <% current_customer.cart_items.each do |item|%>
@@ -40,10 +33,9 @@
         </table>
       </div>
       <div class="cuntinue-payment-button row">
-        <div class="col-sm-4 col-sm-offset-5">
-          <%= button_tag(class: "btn btn-default continue-button") do %>
-            <%= link_to "Continue To Pay", new_charge_path(address_id: @address.id) %>
-          <%end%>
+        <div class="col-sm-2 col-sm-offset-5">
+          
+            <%= link_to(customer_orders_path(address_id: @address.id),:method => :post,  class: "btn btn-default") do %>Continue To Pay<% end%>
         </div>
       <div>
     </div>

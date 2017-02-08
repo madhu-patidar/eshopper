@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
-    @top_brands = Brand.take(10)
+    @top_brands = Brand.all
     @category=Category.find(params[:id])
 
     if params[:category_id].present?
@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
     end
 
     @categories = Category.all
-    
+    @brand = Brand.find(params[:id])
     @sub_categories = @category.sub_categories
   end
 

@@ -59,16 +59,7 @@
                
                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                <% if customer_signed_in? %>
-                  <%# if current_customer.cart_items.present? %>
-                    <% if current_page?checkouts_path %>
-                      <% active_checkout = "active" %>
-                    <% else %>
-                      <%active_checkout = ""%> 
-                    <%end%>
-                    <li><%= link_to(checkouts_path, class: "#{active_checkout}") do %><i class="fa fa-crosshairs"></i> Checkout</a></li><% end %>
-                  <%#end %>
-                <% end %>
+                
                 <% if current_page?cart_items_path %>
                   <% active1 = "active" %>
                 <% else %>

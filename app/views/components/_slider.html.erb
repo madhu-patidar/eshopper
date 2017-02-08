@@ -9,27 +9,22 @@
             <% end %>
           </ol>
           <div class="carousel-inner">
-              <% @banners.each_with_index do |banner, index| %>
-                <%if banner.status == true %>
-                  <div class="item <%= index == 0 ? 'active' : ''%>" >
-                    <div class="col-sm-6">
-                      <h1><span>E</span>-SHOPPER</h1>
-                      <h2><%= banner.title %></h2>
-                      <p><%= banner.content %> </p>
-                      <button type="button" class="btn btn-default get">Get it now</button>
-                    </div>
-                    <div class="col-sm-6">
-                      <%if banner.pictures.first.present? %>
-                        <%= image_tag(banner.pictures.first.image.url, class: 'girl img-responsive') %>
-                       <% end %>
-                       <%if banner.pictures.second.present? %>
-                        <%= image_tag(banner.pictures.second.image.url,  class: "pricing")%>
-                        <% end %>
-                    </div>
+            <% @banners.each_with_index do |banner, index| %>
+              <%if banner.status == true %>
+                <div class="item <%= index == 0 ? 'active' : ''%>" >
+                  <div class="col-sm-6">
+                    <h1><span>E</span>-SHOPPER</h1>
+                    <h2><%= banner.title %></h2>
+                    <p><%= banner.content %> </p>
+                    <button type="button" class="btn btn-default get">Get it now</button>
                   </div>
-                <% end %>
+                  <div class="col-sm-6">
+                     <%= image_tag(banner.pictures.first.image.url, class: 'girl img-responsive') %>
+                    <%= image_tag(banner.pictures.second.image.url,  class: "pricing")%>
+                  </div>
+                </div>
               <% end %>
-            
+            <% end %>
           </div>
           <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
             <i class="fa fa-angle-left"></i>

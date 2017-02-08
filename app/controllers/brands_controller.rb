@@ -4,7 +4,7 @@ class BrandsController < ApplicationController
   # GET /brands
   # GET /brands.json
   def index
-    @top_brands = Brand.take(10)
+    @top_brands = Brand.all
     @brands = Brand.all
     @categories = Category.all
     @category = Category.first

@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     @banners = Banner.all
-    @top_brands = Brand.take(10)
+    @top_brands = Brand.all
     @categories = Category.all
     @category = Category.first
     @brands = Brand.all

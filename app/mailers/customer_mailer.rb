@@ -3,7 +3,8 @@ class CustomerMailer < ApplicationMailer
  
   def welcome_email(customer)
     @customer = customer
-    @url  = 'http://example.com/login'
+    @url  = 'http://madhu-eshopper/heroku.com/login'
+    # attachments["rails.png"] = File.read("/home/webwerks/Assignments/training/ROR/live_project/eshopper/app/assets/images/home/logo.png")
     mail(to: @customer.email, subject: 'Welcome to My Awesome Site')
   end
 end
