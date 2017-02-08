@@ -7,11 +7,11 @@ class Customer < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook,:google_oauth2,:twitter]
 
-  # after_create :send_welcome_mail
+  after_create :send_welcome_mail
 
-  # def send_welcome_mail
-  #   CustomerMailer.welcome_email(self).deliver  
-  # end
+  def send_welcome_mail
+    CustomerMailer.welcome_email(self).deliver  
+  end
  
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |customer|

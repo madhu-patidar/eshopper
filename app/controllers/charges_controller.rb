@@ -30,7 +30,7 @@ class ChargesController < ApplicationController
         item.product.save 
         item.destroy
       end
-      # OrderMailer.order_email(current_customer, @customer_order).deliver
+       OrderMailer.order_email(current_customer, @customer_order).deliver
   end
 
   redirect_to payment_success_charge_path(@customer_order)
