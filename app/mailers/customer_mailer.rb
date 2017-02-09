@@ -3,8 +3,8 @@ class CustomerMailer < ApplicationMailer
  
   def welcome_email(customer)
     @customer = customer
-    @url  = 'http://madhu-eshopper/heroku.com/login'
+    @url  = 'http://madhu-eshopper.herokuapp.com/customers/sign_in'
     attachments.inline["logo.png"] = File.read("app/assets/images/home/logo.png")
-    mail(to: @customer.email, subject: 'Welcome to My Awesome Site')
+    mail(to: @customer.email, subject: 'Welcome to E-Shopper')
   end
 end
