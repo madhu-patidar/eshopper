@@ -40,7 +40,7 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresses/1.json
   def update
     respond_to do |format|
-      if @address.update(status: "unactive")
+      if @address.update(status: "inactive")
         format.html { redirect_to  checkouts_path }
         format.js {  }
         format.json { render :show, status: :ok, location: @address }

@@ -4,8 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to http://madhu-eshopper.herokuapp.com/, <%= @customer.first_name %></h1>
+    
     <%= image_tag attachments['logo.png'].url -%>
+    <h4>Welcome to <%=link_to(@url) do%>eshopper.com<% end %>, <%= @customer.first_name %></h4>
     <p>
       You have successfully signed up to http://madhu-eshopper.herokuapp.com/,
       your username is: <%= @customer.email %>.<br>
