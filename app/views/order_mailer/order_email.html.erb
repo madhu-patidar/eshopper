@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-          <h2> <%#= image_tag attachments['logo.png'].url -%></h2>
+          <h2> <%= image_tag attachments['logo.png'].url -%></h2>
           <div class="invoice-title">
           <h2>Invoice</h2>
           <h3 class="pull-right">Order # <%= @customer.customer_orders.last.id%></h3>
