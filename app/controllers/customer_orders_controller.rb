@@ -1,4 +1,5 @@
 class CustomerOrdersController < ApplicationController
+  before_action :authenticate_customer!
   before_action :set_customer_order, only: [:show, :edit, :update, :destroy, :payment,:cancel_order]
   before_action :set_amount, only: [:payment, :create]
 

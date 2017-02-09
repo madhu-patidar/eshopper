@@ -40,11 +40,13 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresses/1.json
   def update
     respond_to do |format|
-      if @address.update(address_params)
+      if @address.update(status: "unactive")
         format.html { redirect_to  checkouts_path }
+        format.js {  }
         format.json { render :show, status: :ok, location: @address }
       else
         format.html { render :edit }
+        format.js {  }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
     end

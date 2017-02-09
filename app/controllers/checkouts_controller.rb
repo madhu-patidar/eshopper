@@ -1,6 +1,6 @@
 class CheckoutsController < ApplicationController
-  before_action :set_checkout, only: [:edit, :update, :destroy]
   before_action :authenticate_customer!
+  before_action :set_checkout, only: [:edit, :update, :destroy]
   before_action :set_amount, only: [:index, :review_payment]
 
   # GET /checkouts

@@ -1,32 +1,35 @@
 <div id="edit_address">
   <div class="col-sm-12">
     <% @customer_addresses.each do |address| %>
-      <div class="col-sm-4" id="address-<%= address.id%>">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <p><strong><%= address.name %></strong></p>
-            <hr>
-           <%= address.address_1 %>
-            <%= address.address_2 %> <%= address.city %>
-            <%= address.state %>
-            <%= address.country %>
-            <%= address.zipcode %>
-            <hr>
-            <p style="font-size:14px"><strong><%= address.mobile_number %></strong></p>
-            <hr>
-            <%= link_to edit_address_path(address), style: "color: black", remote: true do %>
-              <i class="fa fa-pencil-square-o"></i>
-              <span>EDIT</span>
-            <% end %>
-            <%= link_to address_path(address), method: :delete, remote: true, style: "color: black;margin-left: 180px" do %>
-              <i class="fa fa-trash-o"></i>
-              <span>DELETE</span>
-            <% end %>
-            <hr>
-            <%= link_to "Use this Address", review_payment_path(address_id: address.id) %>
+      <%if address.status == "active"%>
+        <div class="col-sm-4" id="address-<%= address.id%>">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <p><strong><%= address.name %></strong></p>
+              <hr>
+             <%= address.address_1 %>
+              <%= address.address_2 %> <%= address.city %>
+              <%= address.state %>
+              <%= address.country %>
+              <%= address.zipcode %>
+              <hr>
+              <p style="font-size:14px"><strong><%= address.mobile_number %></strong></p>
+              <hr>
+              <%= link_to edit_address_path(address), style: "color: black", remote: true do %>
+                <i class="fa fa-pencil-square-o"></i>
+                <span>EDIT</span>
+              <% end %>
+              
+               <%= link_to(address_path(address), :method => :put, remote: true,  style: "color: black;margin-left: 180px" ) do %>
+                <i class="fa fa-trash-o"></i>
+                <span>DELETE</span>
+              <% end %>
+              <hr>
+              <%= link_to "Use this Address", review_payment_path(address_id: address.id) %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
   <div class="modal fade" id="edit-address" role="dialog">
