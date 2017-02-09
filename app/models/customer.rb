@@ -5,7 +5,7 @@ class Customer < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook,:google_oauth2,:twitter]
 
   has_many :cart_items, dependent: :destroy
-  has_many :addresses
+  has_many :addresses, dependent: :destroy
   has_many :customer_orders, dependent: :destroy
 
   after_create :send_welcome_mail
