@@ -8,11 +8,11 @@
     <%= image_tag attachments['logo.png'].url -%>
     <h4>Welcome to <%=link_to(@url) do%>eshopper.com<% end %>, <%= @customer.first_name %></h4>
     <p>
-      You have successfully signed up to http://madhu-eshopper.herokuapp.com/,
+      You have successfully signed up to E-Shopper.com, <%= @customer.first_name %>
       your username is: <%= @customer.email %>.<br>
     </p>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+      To login to the site, just follow this link: <%=link_to(@url) do%>eshopper.com<% end %>, <%= @customer.first_name %>.
     </p>
     <p>Thanks for joining and have a great day!</p>
   </body>
