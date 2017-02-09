@@ -4,7 +4,7 @@ class CustomerMailer < ApplicationMailer
   def welcome_email(customer)
     @customer = customer
     @url  = 'http://madhu-eshopper/heroku.com/login'
-    attachments.inline["logo.png"] = File.read("assets/images/home/logo.png")
+    attachments.inline["logo.png"] = File.read("app/assets/images/home/logo.png")
     mail(to: @customer.email, subject: 'Welcome to My Awesome Site')
   end
 end
