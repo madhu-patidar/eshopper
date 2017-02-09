@@ -8,7 +8,7 @@
         <h2>&#8377; <%= product.price %></h2>
         
         <%= link_to product_path(product) do%>
-          <p> <%= truncate(product.name , length:23) %></p>
+          <p><acronym title="<%= product.name %>"> <%= truncate(product.name , length:23) %></acronym></p>
         <% end %>
         <% if customer_signed_in? %>
           <% if current_customer.cart_items.pluck(:product_id ).include?(product.id) %>
