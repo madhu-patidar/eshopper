@@ -150,3 +150,8 @@ button a{
 .table > tbody > tr > .thick-line {
     border-top: 2px solid;
 }
+
+#continue-but{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}

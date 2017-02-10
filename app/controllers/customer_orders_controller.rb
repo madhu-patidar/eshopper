@@ -29,6 +29,10 @@ class CustomerOrdersController < ApplicationController
   def cancel_order
     @customer_order.status = "cancel"
     @customer_order.save
+    @customer_order.order_details.each do |item|
+        item.product.quantity += item.quantity
+        item.product.save
+    end
   end
 
   # POST /customer_orders
