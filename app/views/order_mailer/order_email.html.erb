@@ -80,13 +80,19 @@
                     <td class="no-line"></td>
                     <td class="no-line"></td>
                     <td class="no-line text-center"><strong>Shipping</strong></td>
-                    <td class="no-line text-right">&#8377;15</td>
+                    <td class="no-line text-right">&#8377;<%= @shipping_cost1 %></td>
+                  </tr>
+                  <tr>
+                    <td class="no-line"></td>
+                    <td class="no-line"></td>
+                    <td class="no-line text-center"><strong>Tax</strong></td>
+                    <td class="no-line text-right">&#8377;<%= @tax %></td>
                   </tr>
                   <tr class="cancel-button cancel-payment">
                     <td class="no-line " ></td>
                     <td class="no-line"></td>
                     <td class="no-line text-center"><strong>Total</strong></td>
-                    <td class="no-line text-right">&#8377;<%= 15 + subtotal %></td>
+                    <td class="no-line text-right">&#8377;<%= @total %></td>
                   </tr>
                 </tbody>
               </table>

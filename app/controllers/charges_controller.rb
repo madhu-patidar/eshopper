@@ -43,6 +43,19 @@ class ChargesController < ApplicationController
 
   def payment_success
      @customer_order = CustomerOrder.find(params[:id])
+     @order_sub_total = 0
+      @customer_order.order_details.each do |item|
+        @order_sub_total += item.quantity*item.product.price
+      end
+      @shipping_cost = 0
+      @shipping_cost1 = @shipping_cost
+      
+      if @shipping_cost == 0
+        @shipping_cost1 = "Free"
+      end
+
+      @tax = (@order_sub_total*1)/100
+      @total = @order_sub_total + @shipping_cost + @tax
   end
   
   def set_amount

@@ -40,7 +40,6 @@
             <address>
               <strong>Payment Method:</strong><br>
               Visa ending **** 4242<br>
-              jsmith@email.com
             </address>
           </div>
           <div class="col-xs-6 text-right">
@@ -82,13 +81,19 @@
                     <td class="thick-line"></td>
                     <td class="thick-line"></td>
                     <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                    <td class="thick-line text-right">&#8377;<%= subtotal %></td>
+                    <td class="thick-line text-right">&#8377;<%= @order_sub_total %></td>
                   </tr>
                   <tr>
                     <td class="no-line"></td>
                     <td class="no-line"></td>
                     <td class="no-line text-center"><strong>Shipping</strong></td>
-                    <td class="no-line text-right">&#8377;15</td>
+                    <td class="no-line text-right"><%= @shipping_cost1 %></td>
+                  </tr>
+                   <tr>
+                    <td class="no-line"></td>
+                    <td class="no-line"></td>
+                    <td class="no-line text-center"><strong>Tax</strong></td>
+                    <td class="no-line text-right">&#8377;<%= @tax %></td>
                   </tr>
                   <tr class="cancel-button cancel-payment">
                     <td class="no-line " ><%= link_to "Cancel Order", cancel_order_customer_order_path(@customer_order),  class: "btn btn-default" %>&nbsp;&nbsp;
@@ -98,7 +103,7 @@
                     <td class="no-line"></td>
                    
                     <td class="no-line text-center"><strong>Total</strong></td>
-                    <td class="no-line text-right">&#8377;<%= 15 + subtotal %></td>
+                    <td class="no-line text-right">&#8377;<%= @total %></td>
                   </tr>
                 </tbody>
               </table>
