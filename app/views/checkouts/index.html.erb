@@ -10,6 +10,7 @@
       <h2 class="heading">Step1</h2>
     </div>
     <div class="shopper-informations">
+      <%if @customer_addresses.present? && current_customer.addresses.pluck(:status ).include?("active")%>
       <div class="row">
         <div class="col-sm-12 clearfix">
           <div class="bill-to create-address">
@@ -60,6 +61,29 @@
           </div>
         </div>
       </div>
+      <% else %>
+       <div class="modal-body">
+          <%= form_for @address do |f|%>
+            <div class="row">
+              <div class="col-sm-4 col-sm-offset-4 billing-form">
+                <%= f.text_field "name", placeholder: "Name *"%>
+                <%= f.text_field "address_1",  placeholder: "Address 1 *"%>
+                <%= f.text_field "address_2",  placeholder: "Address 2"%>
+                <%= f.text_field "city", placeholder: "city *"%>
+                <%= f.text_field "zipcode", placeholder: "Zip / Postal Code *"%>
+                 <%= f.select :country, CountryStateSelect::countries_collection, {}, id: 'country_id' %>
+                  <%= f.text_field :state ,:id=>'state_name', placeholder: "State *" %>
+                <%= f.text_field "mobile_number", placeholder: "Mobile Phone"%>
+                <%= f.hidden_field "customer_id", value: "#{current_customer.id}"%>
+                <%= f.hidden_field "address_type", value: "billing"%>
+              </div>
+              <div class="col-sm-3 col-sm-offset-5 form-one">
+                <%= f.button "Submit" %>
+              </div>
+            </div>
+          <% end %>
+       </div>
+      <% end %>
     <div class="row">   
   </div> <!--/#cart_items-->
 </section>  

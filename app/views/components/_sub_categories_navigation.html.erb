@@ -1,5 +1,5 @@
 <% @categories.each do |category|%>  
-  <% if category.name =="MENS" %>
+  <%# if category.name =="MENS" %>
      <% category.sub_categories.each_with_index do |subcategory,index| %>
          <%if @sub.present?%>
         <li class="<%= "active" if subcategory.id == @sub.id%>">
@@ -15,6 +15,6 @@
           <% end %>
         </li>
       <% end %>
-  <% end %>
+  <%# end %>
 <% end %>
 
