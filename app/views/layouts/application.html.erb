@@ -71,6 +71,18 @@
                     <i class="fa fa-shopping-cart"></i> Cart<span id="cart-item-count"><% if customer_signed_in? %> (<%= current_customer.cart_items.count %>)<% end %></span>
                   <% end %>
                 </li>
+
+                <% if current_page?cart_items_path %>
+                  <% active1 = "active" %>
+                <% else %>
+                  <% active1 = ""%> 
+                <%end%>
+
+                <li>
+                  <%= link_to(checkouts_path, class: "#{active1}") do %>
+                    <i class="fa fa-crosshairs"></i> Checkout
+                  <% end %>
+                </li>
                 <% if customer_signed_in? %>
                 <li>
                   <%= link_to(destroy_customer_session_path, :method => :delete) do %>  <i class="fa fa-sign-out"></i>Logout  
