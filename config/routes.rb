@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   
+  resources :wish_lists
   resources :customer_orders
   
   resources :customer_orders do

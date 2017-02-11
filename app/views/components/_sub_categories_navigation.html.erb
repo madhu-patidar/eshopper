@@ -4,9 +4,9 @@
         <% if @sub.present? %>
           <li class="<%= "active" if subcategory.id == @sub.id%>">
         <% else %>
-          <li class="<%= "active" if index == 0%>">
+          <li class="<%= "active" if index == 0 %>">
         <% end %>
-          <%= link_to(root_path(sub_category_id: subcategory.id)) do %>
+          <%= link_to(root_path(sub_category_id: subcategory.id), remote: true) do %>
             <% if subcategory.name.start_with?('<') %>
               <%= subcategory.name.split(">")[1] %>
             <% elsif %>

@@ -5,21 +5,13 @@
        <div class="col-sm-9 padding-right">
         <div class="category-tab"><!--category-tab-->
           <div class="col-sm-12">
-            <ul class="nav nav-tabs">
-             <%= render "subcategories"%>
+            <ul class="nav nav-tabs" id="brans-categories">
+             <%= render "brand_categories", sub1: @sub %>
            </ul>
           </div>
-          <div class="tab-content">
-            <%if @products.present? %>
-              <% @products.each do |product| %>
-                <div class="tab-pane fade active in" id="product-list-<%=product.id%>" >
-                  <%= render "components/content" ,product: product %>
-                </div>
-              <%end%>
-            <% else %>
-              <h2 align="center"> Product not available</h2>
-            <% end %>
-           </div>
+          <div class="tab-content" id="brand-products">
+           <%= render "brand_products"%>
+          </div>
         </div><!--/category-tab-->
      
       <%= render "components/recommended" %>

@@ -7,7 +7,7 @@
          <li class="<%= "active" if index == 0%>">
       <% end %>
       <% if @category.sub_categories.present? %>
-            <%= link_to(category_path(category_id: subcategory.id)) do %>
+            <%= link_to(category_path(category_id: subcategory.id),remote: true) do %>
               <% if subcategory.name.start_with?('<') %>
                 <%= subcategory.name.split(">")[1] %>
               <% elsif %>
