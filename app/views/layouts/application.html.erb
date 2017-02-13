@@ -58,7 +58,15 @@
               <ul class="nav navbar-nav">
                
                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                <% if current_page?wish_lists_path %>
+                  <% active1 = "active" %>
+                <% else %>
+                  <% active1 = ""%> 
+                <%end%>
+
+                <li><%= link_to(wish_lists_path, class: "#{active1}") do %>
+                    <i class="fa fa-star"></i> Wishlist<span id="wish-list-item-count"><% if customer_signed_in? && current_customer.wish_lists.present? %> (<%= current_customer.wish_lists.count %>)<% end %></span>
+                  <% end %></li>
                 
                 <% if current_page?cart_items_path %>
                   <% active1 = "active" %>

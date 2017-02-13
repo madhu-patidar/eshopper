@@ -1,0 +1,3 @@
+$("#wish-list-<%=@wish_list[:product_id]%>").html("<%= j (render partial: 'wish_lists/form', :locals => {:product => @product}) %>");
+$("#add-product-to-wish-list").html("<%= j (render partial: 'wish_lists/form', :locals => {:product => @product}) %>");
+$('#wish-list-item-count').html(" (" +<%= current_customer.wish_lists.count %>+ ") ");

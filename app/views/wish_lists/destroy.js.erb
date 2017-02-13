@@ -1,0 +1,6 @@
+$("#wish-list-<%=@wish_list[:product_id]%>").html("<%= j (render partial: 'wish_lists/form', :locals => {:product => @product}) %>");
+$("#add-product-to-wish-list").html("<%= j (render partial: 'wish_lists/form', :locals => {:product => @product}) %>");
+$('#wish-list-item-count').html(<% if current_customer.wish_lists.count > 0 %>" (" +<%= current_customer.wish_lists.count %>+ " )" <% else %> "" <% end %>)
+$("#wish-list-item-<%=@wish_list[:id]%>").remove();
+$("#empty-list").html("<%= j (render partial: 'wish_lists/empty_list') %>");
+$("#wish-list-table-head").html("<%= j (render partial: 'wish_lists/table_head') %>");

@@ -37,7 +37,6 @@ class CartItemsController < ApplicationController
   # POST /cart_items
   # POST /cart_items.json
   def create
-
     quantity = 1
 
     if params[:controller_name].present? && params[:cart_item][:quantity].present?
@@ -54,7 +53,10 @@ class CartItemsController < ApplicationController
       else
         @cart_item = CartItem.new(product_id: params[:product_id],customer_id: current_customer.id, quantity: quantity)
       end
-
+      @wish_list1 = WishList.where(product_id: params[:product_id]).first
+      if @wish_list1.present?
+        @wish_list = @wish_list1
+      end
       respond_to do |format|
         if @cart_item.save
           @product.quantity -= quantity

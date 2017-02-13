@@ -1,29 +1,21 @@
-<p id="notice"><%= notice %></p>
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%= link_to(root_path) do %>Home<% end %></li>
+        <li class="active">Wishlist</li>
+      </ol>
+    </div>
+    <div class="row">
+      <% current_customer.wish_lists.each_with_index do |item,index|%>
+        <div id="wish-list-item-<%=item.id%>" class="col-sm-6">
+           <%= render "wish_list_item", item: item %>
+        </div>
 
-<h1>Listing Wish Lists</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Customer</th>
-      <th>Product</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @wish_lists.each do |wish_list| %>
-      <tr>
-        <td><%= wish_list.customer %></td>
-        <td><%= wish_list.product %></td>
-        <td><%= link_to 'Show', wish_list %></td>
-        <td><%= link_to 'Edit', edit_wish_list_path(wish_list) %></td>
-        <td><%= link_to 'Destroy', wish_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Wish list', new_wish_list_path %>
+      <% end %>
+    </div>
+    <div id="empty-list">
+      <%= render "empty_list"%>
+    </div>
+  </div>
+</section> <!--/#cart_items-->

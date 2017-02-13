@@ -3,6 +3,11 @@
     <div class="product-image-wrapper">
       <div class="single-products">
         <div class="productinfo text-center">
+          
+            <h4 align="right" id="wish-list-<%= product.id%>">
+                <%=render "wish_lists/form", :product => product %>
+            </h4>
+         
           <%= link_to product_path(product) do %>
             <%= image_tag(product.pictures.find_by(imageable_id: product.id).image.url) %>
           <% end %>

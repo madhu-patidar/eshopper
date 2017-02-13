@@ -1489,7 +1489,7 @@ h2.title {
   margin-top: 23px;
 }
 
-.login-form form button, .signup-form form button, .create-address button, .cuntinue-payment-button a, .success-payment a {
+.login-form form button, .signup-form form button, .create-address button, .cuntinue-payment-button a, .success-payment a{
   background: #FE980F;
   border: medium none;
   border-radius: 8;
@@ -1498,6 +1498,26 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   padding: 6px 25px;
 }
+
+.product-information1 a {
+  background: #FE980F;
+  border: medium none;
+  border-radius: 0;
+  color: #FFFFFF;
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  padding: 6px 20px;
+}
+
+.move-to-cart-btn a{
+  background: #FE980F;
+  border: medium none;
+  border-radius: 0;
+  color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  padding: 6px 20px;
+}
+
 .cancel-payment a{
    background: #FE980F;
   border: medium none;
