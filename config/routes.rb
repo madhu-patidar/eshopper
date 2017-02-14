@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     member do
       get 'payment'
       get 'cancel_order'
+      get 'invoice'
     end
   end
   resources :charges do

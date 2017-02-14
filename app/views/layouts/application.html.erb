@@ -54,8 +54,16 @@
             
           </div>
           <div class="col-sm-8">
-            <div class="shop-menu pull-right">
-              <ul class="nav navbar-nav">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="shop-menu pull-right mainmenu">
+              <ul class="nav navbar-nav collapse navbar-collapse">
                
                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                 <% if current_page?wish_lists_path %>
@@ -93,18 +101,37 @@
                   </li> -->
                 <%# end %>
                 <% if customer_signed_in? %>
-                <li>
-                  <%= link_to(destroy_customer_session_path, :method => :delete) do %>  <i class="fa fa-sign-out"></i>Logout  
-                  <% end %>
-                </li>
-                <li>
-                  <% if current_customer.first_name.present? %>
-                    <%= link_to("#") do %><%= current_customer.first_name %><%end%>
-                  <% else %>
-                    <%= current_customer.email %>
-                  <% end %>
-                </li>
-                    
+                  <li>
+                    <%= link_to(destroy_customer_session_path, :method => :delete) do %>  <i class="fa fa-sign-out"></i>Logout  
+                    <% end %>
+                  </li>
+                  <li>
+                    <% if current_customer.first_name.present? %>
+                      <%= link_to("#") do %><% end %>
+                       <li class="dropdown"><a href="#">
+                        <%= current_customer.first_name %>
+                        <i class="fa fa-angle-down"></i></a>
+                        <ul role="menu" class="sub-menu">
+                            <li><%= link_to(customer_orders_path) do %>My Order<% end %></li><br>
+                            <li><%= link_to(wish_lists_path) do %> Wishlist <% end %></li> <br>
+                            <li><%= link_to(checkouts_path) do %>Checkout<% end %></li> <br>
+                            <li><%=link_to(cart_items_path) do %>Cart<% end %></li> 
+                        </ul>
+                      </li>
+                    <% else %>
+                      <%= link_to("#") do %><% end %>
+                       <li class="dropdown"><a href="#">
+                        <%= current_customer.email %>
+                        <i class="fa fa-angle-down"></i></a>
+                        <ul role="menu" class="sub-menu">
+                            <li><%= link_to(customer_orders_path) do %>My Order<% end %></li><br>
+                            <li><%= link_to(wish_lists_path) do %> Wishlist <% end %></li> <br>
+                            <li><%= link_to(checkouts_path) do %>Checkout<% end %></li> <br>
+                            <li><%=link_to(cart_items_path) do %>Cart<% end %></li> 
+                        </ul>
+                      </li>
+                    <% end %>
+                  </li>   
                 <%- elsif controller_name != 'sessions' %>
                   <li>
                     <%= link_to(new_customer_session_path) do %> 

@@ -1,11 +1,4 @@
 <div class="container">
-  <div class="row success-payment" style="border-style: inset;">
-    <div class="col-sm-6 col-sm-offset-4">
-      <h2>Thanks, you paid <strong>&#8377;<%= current_customer.customer_orders.last.grand_total %></strong>!</h2>
-    </div>
-  </div>
-</div>
-<div class="container">
   <div class="row">
       <div class="col-xs-12">
         <h2><%= image_tag "home/logo.png" %></h2>
@@ -92,10 +85,7 @@
                     <td class="no-line text-right">&#8377;<%= @tax %></td>
                   </tr>
                   <tr class="cancel-button cancel-payment">
-                    <td class="no-line " ><%= link_to "Cancel Order", cancel_order_customer_order_path(@customer_order),  class: "btn btn-default" %>&nbsp;&nbsp;
-                    <%= link_to "Continue shoping", root_path,  class: "btn btn-default" %>
-
-                    </td>
+                    <td class="no-line " ></td>
                     <td class="no-line"></td>
                    
                     <td class="no-line text-center"><strong>Total</strong></td>

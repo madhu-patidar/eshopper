@@ -42,7 +42,9 @@ function update_quantity(cart_item_id,product_id,min,max,qty)
 };
 
 
-
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
 // $(document).on('ready page:load', function() {
 //   return CountryStateSelect({
 //     country_id: "address_country",

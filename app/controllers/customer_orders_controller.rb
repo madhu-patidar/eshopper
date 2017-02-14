@@ -6,7 +6,7 @@ class CustomerOrdersController < ApplicationController
   # GET /customer_orders
   # GET /customer_orders.json
   def index
-    @customer_orders = CustomerOrder.all
+    @customer_orders = current_customer.customer_orders
   end
 
   # GET /customer_orders/1
@@ -17,6 +17,22 @@ class CustomerOrdersController < ApplicationController
   def payment
   end
 
+  def invoice
+     @customer_order = CustomerOrder.find(params[:id])
+     @order_sub_total = 0
+      @customer_order.order_details.each do |item|
+        @order_sub_total += item.quantity*item.product.price
+      end
+      @shipping_cost = 0
+      @shipping_cost1 = @shipping_cost
+      
+      if @shipping_cost == 0
+        @shipping_cost1 = "Free"
+      end
+
+      @tax = (@order_sub_total*1)/100
+      @total = @order_sub_total + @shipping_cost + @tax
+  end
   # GET /customer_orders/new
   def new
     @customer_order = CustomerOrder.new

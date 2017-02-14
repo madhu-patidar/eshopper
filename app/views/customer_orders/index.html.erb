@@ -1,35 +1,51 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <% @customer_orders.each do |order| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-sm-2">
+            <p>ORDER PLACED</p>
+            <p><%= order.created_at.strftime("%d %B %Y") %></p>
+          </div> 
+           <div class="col-sm-2">
+            <p>TOTAL</p>
+            <p>&#8377;<%= order.grand_total %></p>
+          </div> 
+          <div class="col-sm-2">
+            <p>SHIP TO</p>
+            <% second_address =  order.address.address_2 if order.address.address_2.present? %>
+            <% address = "#{order.address.address_1}   #{second_address}   #{order.address.city} #{order.address.state}  #{order.address.country}  -  #{order.address.zipcode}" %>
 
-<h1>Listing Customer Orders</h1>
+            <p><a href="" target="_self" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= address %>"><%= order.address.name %> <i class="fa fa-caret-down" aria-hidden="true" style="color:black;"></i></a>
+          </div>
+          <div class="col-sm-2 col-sm-offset-4">
+            <p align="right">ORDER # <%= order.id %><p>
+            <p align="right"><%= link_to(invoice_customer_order_path(order)) do %> INVOICE <% end %></p>
+            <p> </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <% order.order_details.each_with_index do |my_order,index|%>
+          <div class="row">
+            <div class="col-sm-2 col-sm-offset-1 list-my_order">
+              <%= link_to product_path(my_order.product) do %><%= image_tag(my_order.product.pictures.find_by(imageable_id: my_order.product.id).image.url,size: "100x100") %>
+              <% end %>
+            </div>
+            <div class="col-sm-9 list-my_order">
+              <p><%= link_to product_path(my_order.product) do %><acronym title="<%= my_order.product.name %>"><%= truncate(my_order.product.name , length:45) %></acronym><% end %></p>
+              <p>&#8377;<%= my_order.product.price %></p>
+              <p></p>
+            </div>
+          </div>  <%if order.order_details.count-1 > index %> <hr><% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Customer</th>
-      <th>Address</th>
-      <th>Status</th>
-      <th>Grand total</th>
-      <th>Shipping charges</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @customer_orders.each do |customer_order| %>
-      <tr>
-        <td><%= customer_order.customer %></td>
-        <td><%= customer_order.address %></td>
-        <td><%= customer_order.status %></td>
-        <td><%= customer_order.grand_total %></td>
-        <td><%= customer_order.shipping_charges %></td>
-        <td><%= link_to 'Show', customer_order %></td>
-        <td><%= link_to 'Edit', edit_customer_order_path(customer_order) %></td>
-        <td><%= link_to 'Destroy', customer_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'New Customer order', new_customer_order_path %>
+
+

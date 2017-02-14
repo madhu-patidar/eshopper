@@ -5,9 +5,9 @@
       <div class="col-sm-9 padding-right">
         <div class="product-details"><!--product-details-->
           <div class="col-sm-5">
-             <h3 id="add-product-to-wish-list" align="right">
-              <%= render "wish_lists/form", product: @product %>
-               </h3>
+             <h1 id="add-product-to-wish-list" align="right">
+              <%= render "wish_lists/wish_list_links", product: @product %>
+               </h1>
             <div class="view-product">
 
               <%= image_tag(@product.pictures.find_by(imageable_id: @product.id).image.url) %>
