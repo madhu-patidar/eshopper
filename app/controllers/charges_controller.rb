@@ -18,11 +18,12 @@ class ChargesController < ApplicationController
       :description => 'Rails Stripe customer',
       :currency    => 'inr'
     )
-  #
+  # => 
+
     if params[:stripeToken].present?
       @customer_order = CustomerOrder.find_by(status: "pending",customer_id: current_customer.id)
       @customer_order.status = "succesfully"
-      
+      @online_transaction = OnlineTransaction.create(transaction_id: charge[:id], amount: charge[:amount], stripe_token: params[:stripeToken],stripe_email: params[:stripeEmail],customer_id: current_customer.id, customer_order_id:  @customer_order.id )
       @customer_order.save
       current_customer.cart_items.each do |item|
         OrderDetail.create(customer_order_id: @customer_order.id, product_id: item.product.id, quantity: item.quantity, amount: item.quantity*item.product.price)
@@ -30,7 +31,7 @@ class ChargesController < ApplicationController
         item.product.save 
         item.destroy
       end
-       OrderMailer.order_email(current_customer, @customer_order).deliver
+      OrderMailer.order_email(current_customer, @customer_order).deliver
   end
 
   redirect_to payment_success_charge_path(@customer_order)

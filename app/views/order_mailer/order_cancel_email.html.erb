@@ -1,41 +1,46 @@
 <div class="container">
-  <div class="row">
-      <div class="col-xs-12">
-        <div class="invoice-title">
-        <h2>Invoice</h2>
-        <h3 class="pull-right">Order # <%= current_customer.customer_orders.last.id%></h3>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-xs-6">
-          <address>
+    <div class="row">
+        <div class="col-xs-12">
+          <h2> <%= image_tag attachments['logo.png'].url -%></h2>
+          <div class="invoice-title">
+          <h2>Invoice</h2>
+          <h3 class="pull-right">Order # <%= @customer.customer_orders.last.id%></h3>
+          
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xs-6">
+            <address>
             <strong>Billed To:</strong><br>
-            <%= @customer_order.address.name%><br>
-            <%=  @customer_order.address.address_1%><br>
-            <%if @customer_order.address.address_2.present? %>
-            <%= @customer_order.address.address_2%><br><% end %>
-            <%= @customer_order.address.city%>, <%=@customer_order.address.state%> - <%=@customer_order.address.zipcode%>
-          </address>
-        </div>
-        <div class="col-xs-6 text-right">
-           <address>
+              <%= @customer_order.address.name%><br>
+              <%=  @customer_order.address.address_1%><br>
+              <%if @customer_order.address.address_2.present? %>
+              <%= @customer_order.address.address_2%><br><% end %>
+              <%= @customer_order.address.city%>, <%=@customer_order.address.state%> - <%=@customer_order.address.zipcode%>
+             
+            </address>
+          </div>
+          <div class="col-xs-6 text-right">
+             <address>
               <strong>Order Date:</strong><br>
-              <%= @customer_order.created_at.strftime("%d %B %Y")%><br><br>
-          </address>
+              March 7, 2014<br><br>
+            </address>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <address>
+              <strong>Payment Method:</strong><br>
+              Visa ending **** 4242<br>
+              <%=  %>
+            </address>
+          </div>
+          <div class="col-xs-6 text-right">
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-6">
-          <address>
-            <strong>Payment Method:</strong><br>
-            Visa ending **** 4242<br>
-          </address>
-        </div>
-        <div class="col-xs-6 text-right">
-        </div>
-      </div>
-  </div>
-  </div>
+    </div>
+    
     <div class="row">
       <div class="col-md-12">
         <div class="panel panel-default">
@@ -69,15 +74,15 @@
                     <td class="thick-line"></td>
                     <td class="thick-line"></td>
                     <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                    <td class="thick-line text-right">&#8377;<%= @order_sub_total %></td>
+                    <td class="thick-line text-right">&#8377;<%= subtotal %></td>
                   </tr>
                   <tr>
                     <td class="no-line"></td>
                     <td class="no-line"></td>
                     <td class="no-line text-center"><strong>Shipping</strong></td>
-                    <td class="no-line text-right"><%= @shipping_cost1 %></td>
+                    <td class="no-line text-right">&#8377;<%= @shipping_cost1 %></td>
                   </tr>
-                   <tr>
+                  <tr>
                     <td class="no-line"></td>
                     <td class="no-line"></td>
                     <td class="no-line text-center"><strong>Tax</strong></td>
@@ -86,7 +91,6 @@
                   <tr class="cancel-button cancel-payment">
                     <td class="no-line " ></td>
                     <td class="no-line"></td>
-                   
                     <td class="no-line text-center"><strong>Total</strong></td>
                     <td class="no-line text-right">&#8377;<%= @total %></td>
                   </tr>

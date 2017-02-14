@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   
+  resources :contacts
   resources :wish_lists
   resources :customer_orders
   
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
       get 'payment'
       get 'cancel_order'
       get 'invoice'
+      get 'order_detail'
     end
   end
   resources :charges do

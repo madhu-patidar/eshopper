@@ -40,7 +40,7 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresses/1.json
   def update
     respond_to do |format|
-      if @address.update(status: "inactive")
+      if @address.update(address_params)
         format.html { redirect_to  checkouts_path }
         format.js {  }
         format.json { render :show, status: :ok, location: @address }
@@ -55,11 +55,16 @@ class AddressesController < ApplicationController
   # DELETE /addresses/1
   # DELETE /addresses/1.json
   def destroy
-    @address.destroy
-    respond_to do |format|
-      format.html { redirect_to addresses_url, notice: 'Address was successfully destroyed.' }
-      format.js {  }
-      format.json { head :no_content }
+   respond_to do |format|
+      if @address.update(status: "inactive")
+        format.html { redirect_to  checkouts_path }
+        format.js {  }
+        format.json { render :show, status: :ok, location: @address }
+      else
+        format.html { render :edit }
+        format.js {  }
+        format.json { render json: @address.errors, status: :unprocessable_entity }
+      end
     end
   end
 

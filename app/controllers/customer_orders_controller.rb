@@ -2,6 +2,7 @@ class CustomerOrdersController < ApplicationController
   before_action :authenticate_customer!
   before_action :set_customer_order, only: [:show, :edit, :update, :destroy, :payment,:cancel_order]
   before_action :set_amount, only: [:payment, :create]
+  before_action :set_invoice_amount, only: [:invoice, :order_detail]
 
   # GET /customer_orders
   # GET /customer_orders.json
@@ -18,20 +19,9 @@ class CustomerOrdersController < ApplicationController
   end
 
   def invoice
-     @customer_order = CustomerOrder.find(params[:id])
-     @order_sub_total = 0
-      @customer_order.order_details.each do |item|
-        @order_sub_total += item.quantity*item.product.price
-      end
-      @shipping_cost = 0
-      @shipping_cost1 = @shipping_cost
-      
-      if @shipping_cost == 0
-        @shipping_cost1 = "Free"
-      end
+  end
 
-      @tax = (@order_sub_total*1)/100
-      @total = @order_sub_total + @shipping_cost + @tax
+  def order_detail  
   end
   # GET /customer_orders/new
   def new
@@ -43,12 +33,17 @@ class CustomerOrdersController < ApplicationController
   end
 
   def cancel_order
+    @transaction = OnlineTransaction.where(customer_id: current_customer.id, customer_order_id: @customer_order.id).first
+    transaction = @transaction.transaction_id
+    charge = Stripe::Charge.retrieve(transaction)
+    charge.refund
     @customer_order.status = "cancel"
     @customer_order.save
     @customer_order.order_details.each do |item|
         item.product.quantity += item.quantity
         item.product.save
     end
+    OrderMailer.order_cancel_email(current_customer, @customer_order).deliver
   end
 
   # POST /customer_orders
@@ -118,5 +113,22 @@ class CustomerOrdersController < ApplicationController
 
     @tax = (@cart_sub_total*1)/100
     @amount = @cart_sub_total + @shipping_cost + @tax
+  end
+
+  def set_invoice_amount
+    @customer_order = CustomerOrder.find(params[:id])
+    @order_sub_total = 0
+    @customer_order.order_details.each do |item|
+      @order_sub_total += item.quantity*item.product.price
+    end
+    @shipping_cost = 0
+    @shipping_cost1 = @shipping_cost
+    
+    if @shipping_cost == 0
+      @shipping_cost1 = "Free"
+    end
+
+    @tax = (@order_sub_total*1)/100
+    @total = @order_sub_total + @shipping_cost + @tax
   end
 

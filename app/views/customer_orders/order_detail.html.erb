@@ -1,10 +1,6 @@
 <div class="container">
   <div class="row">
       <div class="col-xs-12">
-        <div class="invoice-title">
-        <h2>Invoice</h2>
-        <h3 class="pull-right">Order # <%= current_customer.customer_orders.last.id%></h3>
-      </div>
       <hr>
       <div class="row">
         <div class="col-xs-6">
@@ -19,17 +15,14 @@
         </div>
         <div class="col-xs-6 text-right">
            <address>
-              <strong>Order Date:</strong><br>
+           <strong> Order-Id # </strong> <%= current_customer.customer_orders.last.id%><br><br>
+              <strong>Order Date:</strong> 
               <%= @customer_order.created_at.strftime("%d %B %Y")%><br><br>
           </address>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-6">
-          <address>
-            <strong>Payment Method:</strong><br>
-            Visa ending **** 4242<br>
-          </address>
         </div>
         <div class="col-xs-6 text-right">
         </div>
@@ -46,12 +39,12 @@
             <div class="table-responsive">
               <table class="table table-condensed">
                 <thead>
-                                <tr>
+                    <tr>
                       <td><strong>Item</strong></td>
                       <td class="text-center"><strong>Price</strong></td>
                       <td class="text-center"><strong>Quantity</strong></td>
                       <td class="text-right"><strong>Totals</strong></td>
-                                </tr>
+                    </tr>
                 </thead>
                 <tbody>
                   <!-- foreach ($order->lineItems as $line) or some such thing here -->
@@ -84,7 +77,10 @@
                     <td class="no-line text-right">&#8377;<%= @tax %></td>
                   </tr>
                   <tr class="cancel-button cancel-payment">
-                    <td class="no-line " ></td>
+                    <td class="no-line " ><%if @customer_order.status !="delivered" %><%= link_to "Cancel Order", cancel_order_customer_order_path(@customer_order),  class: "btn btn-default" %><% end %>&nbsp;&nbsp;
+                    
+
+                    </td>
                     <td class="no-line"></td>
                    
                     <td class="no-line text-center"><strong>Total</strong></td>

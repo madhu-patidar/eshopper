@@ -1,11 +1,11 @@
-
-  <div id="edit_address">
-    <div class="col-sm-12">
+<div id="edit_address">
+  <div class="col-sm-12">
+    <div class="row">
       <% @customer_addresses.each do |address| %>
         <%if address.status == "active"%>
           <div class="col-sm-4" id="address-<%= address.id%>">
             <div class="panel panel-default">
-              <div class="panel-body ">
+              <div class="panel-body">
                 <p><strong><%= address.name %></strong></p>
                 <hr>
                <%= address.address_1 %>
@@ -16,9 +16,6 @@
                 <hr>
                 <p style="font-size:14px"><strong><%= address.mobile_number %></strong></p>
                 <hr>
-                
-                
-                 
                 <div class="row">
                   <div class="col-sm-4 col-sm-offset-1">
                      <%= link_to edit_address_path(address), style: "color: black", remote: true do %>
@@ -27,7 +24,7 @@
                     <% end %>
                   </div>
                   <div class="col-sm-4 col-sm-offset-3" >
-                    <%= link_to(address_path(address), :method => :put, remote: true,  style: "color: black;" ) do %>
+                    <%= link_to(address_path(address), :method => :delete, remote: true,  style: "color: black;" ) do %>
                     <i class="fa fa-trash-o"></i>
                     <span>DELETE</span> 
                      <% end %>
@@ -43,8 +40,9 @@
             </div>
           </div>
         <% end %>
-      <% end %>
-    </div>
-    <div class="modal fade" id="edit-address" role="dialog">
     </div>
   </div>
+  <% end %>
+  <div class="modal fade" id="edit-address" role="dialog">
+  </div>
+</div>

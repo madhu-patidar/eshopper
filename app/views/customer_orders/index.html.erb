@@ -18,9 +18,10 @@
 
             <p><a href="" target="_self" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= address %>"><%= order.address.name %> <i class="fa fa-caret-down" aria-hidden="true" style="color:black;"></i></a>
           </div>
-          <div class="col-sm-2 col-sm-offset-4">
+          <div class="col-sm-3 col-sm-offset-3">
             <p align="right">ORDER # <%= order.id %><p>
-            <p align="right"><%= link_to(invoice_customer_order_path(order)) do %> INVOICE <% end %></p>
+            <p align="right"><%= link_to(invoice_customer_order_path(order)) do %> Invoice <% end %>&nbsp;
+            <%= link_to(order_detail_customer_order_path(order)) do %> Order-details <% end %></p>
             <p> </p>
           </div>
         </div>
