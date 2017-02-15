@@ -1,45 +1,58 @@
 <div class="container">
-  <% @customer_orders.each do |order| %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="row">
-          <div class="col-sm-2">
-            <p>ORDER PLACED</p>
-            <p><%= order.created_at.strftime("%d %B %Y") %></p>
-          </div> 
-           <div class="col-sm-2">
-            <p>TOTAL</p>
-            <p>&#8377;<%= order.grand_total %></p>
-          </div> 
-          <div class="col-sm-2">
-            <p>SHIP TO</p>
-            <% second_address =  order.address.address_2 if order.address.address_2.present? %>
-            <% address = "#{order.address.address_1}   #{second_address}   #{order.address.city} #{order.address.state}  #{order.address.country}  -  #{order.address.zipcode}" %>
-
-            <p><a href="" target="_self" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= address %>"><%= order.address.name %> <i class="fa fa-caret-down" aria-hidden="true" style="color:black;"></i></a>
-          </div>
-          <div class="col-sm-3 col-sm-offset-3">
-            <p align="right">ORDER # <%= order.id %><p>
-            <p align="right"><%= link_to(invoice_customer_order_path(order)) do %> Invoice <% end %>&nbsp;
-            <%= link_to(order_detail_customer_order_path(order)) do %> Order-details <% end %></p>
-            <p> </p>
-          </div>
-        </div>
-      </div>
-      <div class="panel-body">
-        <% order.order_details.each_with_index do |my_order,index|%>
+  <%if @customer_orders.present? %>
+    <% @customer_orders.each do |order| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
           <div class="row">
-            <div class="col-sm-2 col-sm-offset-1 list-my_order">
-              <%= link_to product_path(my_order.product) do %><%= image_tag(my_order.product.pictures.find_by(imageable_id: my_order.product.id).image.url,size: "100x100") %>
-              <% end %>
+            <div class="col-sm-2">
+              <p>ORDER PLACED</p>
+              <p><%= order.created_at.strftime("%d %B %Y") %></p>
+            </div> 
+             <div class="col-sm-2">
+              <p>TOTAL</p>
+              <p>&#8377;<%= order.grand_total %></p>
+            </div> 
+            <div class="col-sm-2">
+              <p>SHIP TO</p>
+              <% second_address =  order.address.address_2 if order.address.address_2.present? %>
+              <% address = "#{order.address.address_1}   #{second_address}   #{order.address.city} #{order.address.state}  #{order.address.country}  -  #{order.address.zipcode}" %>
+
+              <p><a href="" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= address %>"><%= order.address.name %> <i class="fa fa-caret-down" aria-hidden="true" style="color:black;"></i></a></p>
             </div>
-            <div class="col-sm-9 list-my_order">
-              <p><%= link_to product_path(my_order.product) do %><acronym title="<%= my_order.product.name %>"><%= truncate(my_order.product.name , length:45) %></acronym><% end %></p>
-              <p>&#8377;<%= my_order.product.price %></p>
+            <div class="col-sm-2">
+              <p>Status</p>
+              <p><%= order.status %></p>
               <p></p>
             </div>
-          </div>  <%if order.order_details.count-1 > index %> <hr><% end %>
-        <% end %>
+            <div class="col-sm-3 col-sm-offset-1">
+              <p align="right">ORDER # <%= order.id %><p>
+              <p align="right"><%= link_to(invoice_customer_order_path(order)) do %> Invoice <% end %>&nbsp;
+              <%= link_to(order_detail_customer_order_path(order)) do %> Order-details <% end %></p>
+              <p> </p>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <% order.order_details.each_with_index do |my_order,index|%>
+            <div class="row">
+              <div class="col-sm-2 col-sm-offset-1 list-my_order">
+                <%= link_to product_path(my_order.product) do %><%= image_tag(my_order.product.pictures.find_by(imageable_id: my_order.product.id).image.url,size: "100x100") %>
+                <% end %>
+              </div>
+              <div class="col-sm-9 list-my_order">
+                <p><%= link_to product_path(my_order.product) do %><acronym title="<%= my_order.product.name %>"><%= truncate(my_order.product.name , length:45) %></acronym><% end %></p>
+                <p>&#8377;<%= my_order.product.price %></p>
+                <p></p>
+              </div>
+            </div>  <%if order.order_details.count-1 > index %> <hr><% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 align="center">No Order</h3>
       </div>
     </div>
   <% end %>

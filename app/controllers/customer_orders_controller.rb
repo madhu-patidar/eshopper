@@ -37,7 +37,7 @@ class CustomerOrdersController < ApplicationController
     transaction = @transaction.transaction_id
     charge = Stripe::Charge.retrieve(transaction)
     charge.refund
-    @customer_order.status = "cancel"
+    @customer_order.status = "canceled"
     @customer_order.save
     @customer_order.order_details.each do |item|
         item.product.quantity += item.quantity

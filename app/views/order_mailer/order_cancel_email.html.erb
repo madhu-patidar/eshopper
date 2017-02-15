@@ -1,104 +1,19 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-          <h2> <%= image_tag attachments['logo.png'].url -%></h2>
-          <div class="invoice-title">
-          <h2>Invoice</h2>
-          <h3 class="pull-right">Order # <%= @customer.customer_orders.last.id%></h3>
-          
-        </div>
-        <hr>
-        <div class="row">
-          <div class="col-xs-6">
-            <address>
-            <strong>Billed To:</strong><br>
-              <%= @customer_order.address.name%><br>
-              <%=  @customer_order.address.address_1%><br>
-              <%if @customer_order.address.address_2.present? %>
-              <%= @customer_order.address.address_2%><br><% end %>
-              <%= @customer_order.address.city%>, <%=@customer_order.address.state%> - <%=@customer_order.address.zipcode%>
-             
-            </address>
-          </div>
-          <div class="col-xs-6 text-right">
-             <address>
-              <strong>Order Date:</strong><br>
-              March 7, 2014<br><br>
-            </address>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <address>
-              <strong>Payment Method:</strong><br>
-              Visa ending **** 4242<br>
-              <%=  %>
-            </address>
-          </div>
-          <div class="col-xs-6 text-right">
-          </div>
-        </div>
-      </div>
-    </div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
     
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Order summary</strong></h3>
-          </div>
-          <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-condensed">
-                <thead>
-                                <tr>
-                      <td><strong>Item</strong></td>
-                      <td class="text-center"><strong>Price</strong></td>
-                      <td class="text-center"><strong>Quantity</strong></td>
-                      <td class="text-right"><strong>Totals</strong></td>
-                                </tr>
-                </thead>
-                <tbody>
-                  <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                  <% subtotal = 0 %>
-                  <% @customer_order.order_details.each do |order|%>
-                  <tr>
-                    <td><%=order.product.name%></td>
-                    <td class="text-center">&#8377;<%=order.product.price%></td>
-                    <td class="text-center"><%=order.quantity%></td>
-                    <td class="text-right">&#8377;<%=  subtotal += order.quantity*order.product.price %></td>
-                   
-                  </tr>
-                  <%end%>
-                  <tr>
-                    <td class="thick-line"></td>
-                    <td class="thick-line"></td>
-                    <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                    <td class="thick-line text-right">&#8377;<%= subtotal %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Shipping</strong></td>
-                    <td class="no-line text-right">&#8377;<%= @shipping_cost1 %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Tax</strong></td>
-                    <td class="no-line text-right">&#8377;<%= @tax %></td>
-                  </tr>
-                  <tr class="cancel-button cancel-payment">
-                    <td class="no-line " ></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Total</strong></td>
-                    <td class="no-line text-right">&#8377;<%= @total %></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
+    <%= image_tag attachments['logo.png'].url -%>
+    <h4>Hello, <%= @customer.first_name %></h4>
+    <p>
+      Your Order Successfully <strong>canceled<strong>, your  <strong>&#8377; <%= @amount%></strong> amount is refunded.
+      <br>
+    </p>
+    <p>
+      To Continue shopping just follow this link: <%=link_to(@url) do%>eshopper.com<% end %>
+    </p>
+    <p>Thanks and have a great day!</p>
+  </body>
+</html>
