@@ -41,6 +41,10 @@ function update_quantity(cart_item_id,product_id,min,max,qty)
   };
 };
 
+function show(url) 
+{
+  $("#foo").attr("src", url); 
+};
 
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   

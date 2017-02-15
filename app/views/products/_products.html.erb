@@ -5,7 +5,7 @@
         <div class="product-image-wrapper">
           <div class="single-products">
             <div class="productinfo text-center">
-              <%= image_tag(product.pictures.find_by(imageable_id: product.id).image.url) %>
+              <%= image_tag(product.pictures.first.image.url) %>
               <h2>Rs.<%= product.price %></h2>
               <p>Easy Polo Black Edition</p>
               <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

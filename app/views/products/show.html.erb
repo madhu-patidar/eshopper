@@ -10,34 +10,39 @@
                </h1>
             <div class="view-product">
 
-              <%= image_tag(@product.pictures.find_by(imageable_id: @product.id).image.url) %>
+              <%= image_tag(@product.pictures.first.image.url, id: "foo") %>
               <h3>ZOOM</h3>
             </div>
-            <div id="similar-product" class="carousel slide" data-ride="carousel"><!-- Wrapper for slides -->
-              <div class="carousel-inner">
-                <div class="item active">
-                  <%= image_tag "product-details/similar1.jpg" %>
-                  <%= image_tag "product-details/similar2.jpg" %>
-                  <%= image_tag "product-details/similar3.jpg" %>
-                </div>
-                <div class="item">
-                  <%= image_tag "product-details/similar1.jpg" %>
-                  <%= image_tag "product-details/similar2.jpg" %>
-                  <%= image_tag "product-details/similar3.jpg" %>
-                </div>
-                <div class="item">
-                  <%= image_tag "product-details/similar1.jpg" %>
-                  <%= image_tag "product-details/similar2.jpg" %>
-                  <%= image_tag "product-details/similar3.jpg" %>
-                </div>
-              </div><!-- Controls -->
-              <a class="left item-control" href="#similar-product" data-slide="prev">
-              <i class="fa fa-angle-left"></i>
-              </a>
-              <a class="right item-control" href="#similar-product" data-slide="next">
-              <i class="fa fa-angle-right"></i>
-              </a>
-            </div>
+            <% if @product.pictures.count > 1%>
+              <div id="similar-product" class="carousel slide" data-ride="carousel"><!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <% @product.pictures.each_with_index do |image,index| %> 
+                      <%if index > 0 && index <= 3 %>
+                        <%= image_tag(image.image.url, size:"90x90", onclick: "show('#{image.image.url}')") %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <%if @product.pictures.count > 4%>
+                    <div class="item">
+                      <%@product.pictures.each_with_index do |image,index| %>
+                        <%if index > 3 && index <= 6 %>
+                          <%= image_tag(image.image.url, size: "90x90") %>
+                        <% end %>
+                      <% end %> 
+                    </div>
+                  <% end %>
+                </div><!-- Controls -->
+                <%if @product.pictures.count > 4%>
+                  <a class="left item-control" href="#similar-product" data-slide="prev">
+                  <i class="fa fa-angle-left"></i>
+                  </a>
+                  <a class="right item-control" href="#similar-product" data-slide="next">
+                  <i class="fa fa-angle-right"></i>
+                  </a>
+                <% end %>
+              </div>
+            <% end %>
           </div>
           <div class="col-sm-7">
             <div class="product-information"><!--/product-information-->
@@ -264,8 +269,10 @@
             
           </div>
         </div><!--/category-tab-->
-      <%= render "components/recommended" %>
-      </div><!--/recommended_items-->
+        <div id="recommended_items">
+          <%= render  "recommended_items", product: @product %>
+        </div>
+       <!--/recommended_items-->
     </div>
   </div>
 </section>

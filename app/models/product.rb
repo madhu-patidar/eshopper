@@ -8,5 +8,10 @@ class Product < ActiveRecord::Base
   
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
   validates :price, presence: true 
-  validates :name, presence: true  
+  validates :name, presence: true
+
+  has_and_belongs_to_many(:products,
+    :join_table => "related_products",
+    :foreign_key => "product_id",
+    :association_foreign_key => "related_product_id")  
 end

@@ -1,0 +1,80 @@
+<h2 class="title text-center">recommended items</h2>
+<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="item active"> 
+    <% @product.products.each_with_index do |related_product,index| %>
+      <%if index >= 0 && index < 3 %>
+      <div class="col-sm-4">
+        <div class="product-image-wrapper">
+          <div class="single-products">
+            <div class="productinfo text-center" id="recommended_item-<%= related_product.id %>">
+              <%=image_tag(related_product.pictures.first.image.url) %>
+              <h2><%= related_product.price %></h2>
+              <p><%= related_product.name %></p>
+             <% if current_customer.cart_items.pluck(:product_id ).include?(related_product.id) %>
+                <%= link_to(cart_items_path, class: "btn btn-default add-to-cart") do %>
+                   <i class="fa fa-shopping-cart"></i>Go to Cart
+                <% end -%>
+            <% else %>
+              <%= link_to(cart_items_path(product_id: related_product.id),:method => :post, class: "btn btn-default add-to-cart") do %>
+                   <i class="fa fa-shopping-cart"></i> Add to cart
+              <% end -%>
+            <% end %>
+          <% else %> 
+            <%= link_to(cart_items_path(product_id: related_product.id),:method => :post, class: "btn btn-default add-to-cart") do %>
+               <i class="fa fa-shopping-cart"></i>
+                Add to cart
+            <% end %>
+          <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <%if @product.products.count > 2%>
+    <div class="item">  
+      <% @product.products.each_with_index do |related_product,index| %>
+      <%if index >= 3 && index < 6 %>
+      <div class="col-sm-4">
+        <div class="product-image-wrapper">
+          <div class="single-products">
+            <div class="productinfo text-center">
+              <%=image_tag(related_product.pictures.first.image.url) %>
+              <h2><%= related_product.price %></h2>
+              <p><%= related_product.name %></p>
+              <% if customer_signed_in? %>
+            <% if current_customer.cart_items.pluck(:product_id ).include?(product.id) %>
+                <%= link_to(cart_items_path, class: "btn btn-default add-to-cart") do %>
+                   <i class="fa fa-shopping-cart"></i>Go to Cart
+                <% end -%>
+            <% else %>
+              <%= link_to(cart_items_path(product_id: related_product),:method => :post, remote: true,  class: "btn btn-default add-to-cart") do %>
+                   <i class="fa fa-shopping-cart"></i> Add to cart
+              <% end -%>
+            <% end %>
+          <% else %> 
+            <%= link_to(cart_items_path(product_id: related_product),:method => :post, class: "btn btn-default add-to-cart") do %>
+               <i class="fa fa-shopping-cart"></i>
+                Add to cart
+            <% end %>
+          <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+  <% if @product.products.count > 2 %>
+   <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+    <i class="fa fa-angle-left"></i>
+    </a>
+    <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+    <i class="fa fa-angle-right"></i>
+    </a>
+    <% end %>      
+</div>
+      </div>

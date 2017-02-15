@@ -4,7 +4,8 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.all
+    @contacts = Contact.where("admin_reply IS NULL")
+    @contact = Contact.new
   end
 
   # GET /contacts/1
@@ -23,15 +24,14 @@ class ContactsController < ApplicationController
 
   # POST /contacts
   # POST /contacts.json
-  def create
+  def create 
     @contact = Contact.new(contact_params)
-
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
-        format.json { render :show, status: :created, location: @contact }
+        format.html { redirect_to :back, notice: 'Your message successfully send.' }
+        format.json { render :back, status: :created, location: @contact }
       else
-        format.html { render :new }
+        format.html { render :back }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -39,13 +39,14 @@ class ContactsController < ApplicationController
 
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
-  def update
+  def update 
     respond_to do |format|
       if @contact.update(contact_params)
-        format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
-        format.json { render :show, status: :ok, location: @contact }
+        MessageReply.message_reply(@contact).deliver 
+        format.html { redirect_to :back, notice: 'successfully Reply to customer.' }
+        format.json { render :back, status: :ok, location: @contact }
       else
-        format.html { render :edit }
+        format.html { render :back }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +70,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.fetch(:contact, {})
+      params[:contact].permit(:name, :email, :subject, :message, :admin_reply)
     end
 end

@@ -1,0 +1,26 @@
+<div class="modal-dialog">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">MESSAGE REPLY </h4>
+    </div>
+    <div class="modal-body">
+      <%= form_for @contact do |f|%>
+        <div class="row">
+          <div class="form-group col-md-10 col-md-offset-1">
+            <%= f.text_area "message",disabled: true, id: "message", class: "form-control" %>
+            <br>
+            <%= f.text_area "admin_reply", id: "reply-admin", required: "required", class: "form-control", rows: "8", placeholder: "Reply Here" %>
+          </div> 
+          <div class="col-sm-3 col-sm-offset-4 form-one">
+            <%= f.button "Submit" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
