@@ -1,6 +1,6 @@
 <div class="container">
   <%if @customer_orders.present? %>
-    <% @customer_orders.reverse_each do |order| %>
+    <% @customer_orders.each do |order| %>
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="row">

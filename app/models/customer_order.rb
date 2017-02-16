@@ -3,4 +3,6 @@ class CustomerOrder < ActiveRecord::Base
   belongs_to :address
   has_many :order_details, dependent: :destroy
   has_one :online_transaction
+  
+  default_scope -> { order('created_at DESC') }
 end
