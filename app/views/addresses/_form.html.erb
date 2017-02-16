@@ -10,13 +10,13 @@
         <div class="row">
 
           <div class="col-sm-6 col-sm-offset-3 billing-form">
-            <%= f.text_field "name", placeholder: "Name *"%>
-            <%= f.text_field "address_1",  placeholder: "Address 1 *"%>
+            <%= f.text_field "name", placeholder: "Name *", required: "required"%>
+            <%= f.text_field "address_1",  placeholder: "Address 1 *", required: "required"%>
             <%= f.text_field "address_2",  placeholder: "Address 2"%>
-            <%= f.text_field "city", placeholder: "city *"%>
-            <%= f.text_field "zipcode", placeholder: "Zip / Postal Code *"%>
-            <%= f.select :country, CountryStateSelect::countries_collection, {}, id: 'country_id' %>
-            <%= f.text_field :state ,:id=>'state_name', placeholder: "State *" %>
+            <%= f.text_field "city", placeholder: "city *", required: "required"%>
+            <%= f.text_field "zipcode", placeholder: "Zip / Postal Code *", required: "required"%>
+            <%= f.select :country, CountryStateSelect::countries_collection, {}, id: 'country_id', required: "required" %>
+            <%= f.text_field :state ,:id=>'state_name', placeholder: "State *", required: "required" %>
             <%= f.text_field "mobile_number", placeholder: "Mobile Phone"%>
             <%= f.hidden_field "customer_id", value: "#{current_customer.id}"%>
             <%= f.hidden_field "address_type", value: "billing"%>
