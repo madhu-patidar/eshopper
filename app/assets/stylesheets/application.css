@@ -179,3 +179,14 @@ button a{
   text-decoration:none;
   color: red;
 }
+
+.progress a{
+  text-decoration:none;
+  color: white;
+}
+
+
+.progress-bar-size {
+  line-height:30px;
+  font-size:12px;
+}
