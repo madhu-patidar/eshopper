@@ -8,9 +8,13 @@
             <div class="product-image-wrapper">
               <div class="single-products">
                 <div class="productinfo text-center" id="recommended_item-<%= related_product.id %>">
-                  <%=image_tag(related_product.pictures.first.image.url,size: "134x268") %>
+                  <%= link_to product_path(related_product) do %>
+                    <%= image_tag(related_product.pictures.first.image.url,size: "134x268") %>
+                   <% end %>
                   <h2><%= related_product.price %></h2>
-                  <p><%= related_product.name %></p>
+                  <%= link_to product_path(related_product) do%>
+                    <p><acronym title="<%= product.name %>"> <%= truncate(related_product.name , length:23) %></acronym></p>
+                  <% end %>
                   <% if current_customer.cart_items.pluck(:product_id ).include?(related_product.id) %>
                     <%= link_to(cart_items_path, class: "btn btn-default add-to-cart") do %>
                       <i class="fa fa-shopping-cart"></i>Go to Cart
