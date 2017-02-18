@@ -5,7 +5,7 @@ class WishListsController < ApplicationController
   # GET /wish_lists
   # GET /wish_lists.json
   def index
-    @wish_lists = WishList.all
+    @wish_lists = current_customer.wish_lists
   end
 
   # GET /wish_lists/1
@@ -15,7 +15,6 @@ class WishListsController < ApplicationController
 
   # GET /wish_lists/new
   def new
-    @wish_list = WishList.new
   end
 
   # GET /wish_lists/1/edit
@@ -25,19 +24,19 @@ class WishListsController < ApplicationController
   # POST /wish_lists
   # POST /wish_lists.json
   def create
-    @product = Product.find(params[:product_id])
-    @wish_list = WishList.new(product_id: params[:product_id], customer_id: current_customer.id)
+      @product = Product.find(params[:product_id])
+      @wish_list = WishList.find_or_initialize_by(product_id: params[:product_id], customer_id: current_customer.id)
 
-    respond_to do |format|
-      if @wish_list.save
-        format.html { redirect_to :back, notice: 'Wish list was successfully created.' }
-        format.js {}
-        format.json { render :show, status: :created, location: @wish_list }
-      else
-        format.html { render :new }
-        format.json { render json: @wish_list.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @wish_list.save
+          format.html { redirect_to :back, notice: 'Wish list was successfully created.' }
+          format.js {}
+          format.json { render :show, status: :created, location: @wish_list }
+        else
+          format.html { render :new }
+          format.json { render json: @wish_list.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # PATCH/PUT /wish_lists/1
@@ -57,8 +56,8 @@ class WishListsController < ApplicationController
   # DELETE /wish_lists/1
   # DELETE /wish_lists/1.json
   def destroy
-    @product = Product.find(params[:id])
-    @wish_list = WishList.where(product_id: params[:id]).first
+    @wish_list = WishList.find(params[:id])
+    @product = @wish_list.product
     @wish_list.destroy
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Wish list was successfully destroyed.' }

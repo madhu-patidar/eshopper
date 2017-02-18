@@ -13,6 +13,7 @@ class CustomerOrdersController < ApplicationController
   # GET /customer_orders/1
   # GET /customer_orders/1.json
   def show
+
   end
 
   def payment
@@ -21,7 +22,10 @@ class CustomerOrdersController < ApplicationController
   def invoice
   end
 
-  def order_detail  
+  def order_detail
+    if !current_customer.customer_orders.pluck(:id).include?(params[:id].to_i)
+      redirect_to root_path
+    end
   end
   # GET /customer_orders/new
   def new
@@ -116,19 +120,23 @@ class CustomerOrdersController < ApplicationController
   end
 
   def set_invoice_amount
-    @customer_order = CustomerOrder.find(params[:id])
-    @order_sub_total = 0
-    @customer_order.order_details.each do |item|
-      @order_sub_total += item.quantity*item.product.price
-    end
-    @shipping_cost = 0
-    @shipping_cost1 = @shipping_cost
-    
-    if @shipping_cost == 0
-      @shipping_cost1 = "Free"
-    end
+    if !current_customer.customer_orders.pluck(:id).include?(params[:id].to_i)
+      redirect_to root_path
+    else
+      @customer_order = CustomerOrder.find(params[:id])
+      @order_sub_total = 0
+      @customer_order.order_details.each do |item|
+        @order_sub_total += item.quantity*item.product.price
+      end
+      @shipping_cost = 0
+      @shipping_cost1 = @shipping_cost
+      
+      if @shipping_cost == 0
+        @shipping_cost1 = "Free"
+      end
 
-    @tax = (@order_sub_total*1)/100
-    @total = @order_sub_total + @shipping_cost + @tax
+      @tax = (@order_sub_total*1)/100
+      @total = @order_sub_total + @shipping_cost + @tax
+    end
   end
 

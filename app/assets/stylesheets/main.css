@@ -1527,6 +1527,15 @@ h2.title {
   
   font-family: 'Roboto', sans-serif;
 }
+.cancel-payment button{
+   background: #FE980F;
+  border: medium none;
+  border-radius: 8;
+  color: #FFFFFF;
+  
+  font-family: 'Roboto', sans-serif;
+}
+
 .create-address button {
   margin-top: 23px;
 }
@@ -2573,4 +2582,16 @@ h2.title {
 
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
+}
+
+.bar-size {
+  line-height:30px;
+  font-size:12px;
+  width:25%;
+}
+.bar-size a{
+  color:white;
+}
+.bar-size p{
+  color:black; 
 }

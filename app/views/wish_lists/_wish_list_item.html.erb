@@ -2,17 +2,17 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-sm-5 list-item">
-        <%= link_to product_path(item.product) do %><%= image_tag(item.product.pictures.find_by(imageable_id: item.product.id).image.url,size: "100x100") %>
+        <%= link_to product_path(item.product) do %><%= image_tag(item.product.pictures.first.image.url, size: "100x100") %>
         <% end %>
       </div>
 
       <div class="col-sm-7 list-item">
-          <p><%= link_to product_path(item.product) do %><acronym title="<%= item.product.name %>"><%= truncate(item.product.name , length:45) %></acronym><% end %></p>
+          <p><%= link_to product_path(item.product) do %><acronym title="<%= item.product.name %>"><%= truncate(item.product.name, length:45) %></acronym><% end %></p>
           <p>&#8377;<%= item.product.price %></p>
           <p>
             <span class="move-to-cart-btn">
              <% if customer_signed_in? %>
-                <% if current_customer.cart_items.pluck(:product_id ).include?(item.product.id) %>
+                <% if current_customer.cart_items.pluck(:product_id).include?(item.product.id) %>
                     <%= link_to(cart_items_path, class: "btn btn-default add-to-cart") do %>
                        <i class="fa fa-shopping-cart"></i>Go to Cart
                     <% end -%>
@@ -24,7 +24,7 @@
               <% end %>
              </span> 
             <span class="wish-list-remove-button">
-              <%= link_to(wish_list_path(item.product),class: "cart_quantity_delete ", method: :delete, remote: true, data: {confirm: "Do you want remove item from Wish-list?"}) do %>
+              <%= link_to(wish_list_path(item.product), class: "cart_quantity_delete ", method: :delete, remote: true, data: {confirm: "Do you want ?"}) do %>
                  <i class="glyphicon glyphicon-trash"></i> Remove
               <%end%>
             </span>  
@@ -34,6 +34,7 @@
     </div>
   </div>
 </div>
+
 
 
 

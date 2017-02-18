@@ -7,7 +7,7 @@
       </ol>
     </div>
     <div class="row">
-      <% current_customer.wish_lists.each_with_index do |item,index|%>
+      <% @wish_lists.each_with_index do |item,index|%>
         <div id="wish-list-item-<%=item.id%>" class="col-sm-6">
            <%= render "wish_list_item", item: item %>
         </div>

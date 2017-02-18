@@ -1,1 +1,4 @@
-<%= form.check_box :status %>
+<div>
+<% @state = ["cancel","delivered", "failed", "intransit","pending", "shipped", "success"] %>
+  <%= form.select(:status, @state, id: "state", required: "required", class: "selectpicker") %>
+</div>

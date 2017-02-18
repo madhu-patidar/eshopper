@@ -5,7 +5,6 @@ class HomeController < ApplicationController
     @top_brands = Brand.take(10)
     @categories = Category.all
     @category = Category.last
-    @brands = Brand.all
     
     if params[:sub_category_id].present?
       @sub = Category.find(params[:sub_category_id])

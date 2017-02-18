@@ -1,7 +1,8 @@
 <%if customer_signed_in? %>
   <% if current_customer.wish_lists.pluck(:product_id ).include?(product.id) %>
   <span id="delete-wish-list">
-    <%= link_to(wish_list_path(product), :method => :delete, remote: true) do%><i class="fa fa-heart" aria-hidden="true"></i><% end %>
+    <% wish_list = WishList.find_by(product_id: product.id, customer_id: current_customer.id) %>
+    <%= link_to(wish_list_path(wish_list), :method => :delete, remote: true) do%><i class="fa fa-heart" aria-hidden="true"></i><% end %>
   <span>
   <% else %>
     <span id="add-wish-list">
@@ -11,6 +12,6 @@
 <% else %>
 <span>
   <span id="add-to-wish-list">
-   <%= link_to(wish_lists_path(product_id: product.id), :method => :post) do%><i class="fa fa-heart-o" aria-hidden="true"></i> <% end %>
+   <%= link_to(wish_lists_path(product_id: product.id), :method => :post, remote: true) do%><i class="fa fa-heart-o" aria-hidden="true"></i> <% end %>
  </span>
 <% end %>

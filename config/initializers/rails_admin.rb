@@ -1,5 +1,20 @@
 RailsAdmin.config do |config|
+  
+  config.model 'CustomerOrder' do
+    field :customer
+    field :address
+    field :grand_total
+    field :shipping_charges
+    field :order_details
+    edit do
+      field :status do
+        partial "status_partial"
+      end
+    end
     
+    
+    
+  end
 
   ### Popular gems integration
 

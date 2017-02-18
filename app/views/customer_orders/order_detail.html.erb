@@ -27,70 +27,134 @@
         <div class="col-xs-6 text-right">
         </div>
       </div>
+    </div>
   </div>
-  </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Order summary</strong></h3>
-          </div>
-          <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-condensed">
-                <thead>
-                    <tr>
-                      <td><strong>Item</strong></td>
-                      <td class="text-center"><strong>Price</strong></td>
-                      <td class="text-center"><strong>Quantity</strong></td>
-                      <td class="text-right"><strong>Totals</strong></td>
-                    </tr>
-                </thead>
-                <tbody>
-                  <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                  <% subtotal = 0 %>
-                  <% @customer_order.order_details.each do |order|%>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Order summary</strong></h3>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <thead>
                   <tr>
-                    <td><%=order.product.name%></td>
-                    <td class="text-center">&#8377;<%=order.product.price%></td>
-                    <td class="text-center"><%=order.quantity%></td>
-                    <td class="text-right">&#8377;<%=  subtotal += order.quantity*order.product.price %></td>
-                   
+                    <td><strong>Item</strong></td>
+                    <td class="text-center"><strong>Price</strong></td>
+                    <td class="text-center"><strong>Quantity</strong></td>
+                    <td class="text-right"><strong>Totals</strong></td>
                   </tr>
-                  <%end%>
-                  <tr>
-                    <td class="thick-line"></td>
-                    <td class="thick-line"></td>
-                    <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                    <td class="thick-line text-right">&#8377;<%= @order_sub_total %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Shipping</strong></td>
-                    <td class="no-line text-right"><%= @shipping_cost1 %></td>
-                  </tr>
-                   <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Tax</strong></td>
-                    <td class="no-line text-right">&#8377;<%= @tax %></td>
-                  </tr>
-                  <tr class="cancel-button cancel-payment">
-                    <td class="no-line " ><%if @customer_order.status !="delivered" &&  @customer_order.status !="failed" &&  @customer_order.status != "canceled"%><%= link_to "Cancel Order", cancel_order_customer_order_path(@customer_order),  class: "btn btn-default" %><% end %>&nbsp;&nbsp;
-                    
+              </thead>
+              <tbody>
+                <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                <% subtotal = 0 %>
+                <% @customer_order.order_details.each do |order|%>
+                <tr>
+                  <td><%=order.product.name%></td>
+                  <td class="text-center">&#8377;<%=order.product.price%></td>
+                  <td class="text-center"><%=order.quantity%></td>
+                  <td class="text-right">&#8377;<%=  subtotal += order.quantity*order.product.price %></td>
+                 
+                </tr>
+                <%end%>
+                <tr>
+                  <td class="thick-line"></td>
+                  <td class="thick-line"></td>
+                  <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                  <td class="thick-line text-right">&#8377;<%= @order_sub_total %></td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Shipping</strong></td>
+                  <td class="no-line text-right"><%= @shipping_cost1 %></td>
+                </tr>
+                 <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Tax</strong></td>
+                  <td class="no-line text-right">&#8377;<%= @tax %></td>
+                </tr>
+                <tr class="cancel-button cancel-payment">
+                  <td class="no-line " ><%if @customer_order.status !="delivered" &&  @customer_order.status !="failed" &&  @customer_order.status != "cancel" %><%= link_to "Cancel Order", cancel_order_customer_order_path(@customer_order),  class: "btn btn-default" %><% end %>&nbsp;&nbsp;
+                    <%if @customer_order.status == "shipped" || @customer_order.status == "intransit" || @customer_order.status == "success" || @customer_order.status == "delivered" %>
+                      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#order-track">Track Order</button>
+                    <% end %>
+                  
 
-                    </td>
-                    <td class="no-line"></td>
-                   
-                    <td class="no-line text-center"><strong>Total</strong></td>
-                    <td class="no-line text-right">&#8377;<%= @total %></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                  </td>
+                  <td class="no-line"></td>
+                 
+                  <td class="no-line text-center"><strong>Total</strong></td>
+                  <td class="no-line text-right">&#8377;<%= @total %></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>
+  <div class="modal fade" id="order-track" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+           ORDER TRACKING
+          
+        </div>
+        <div class="modal-body">
+          <%ordered_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "success").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "success").last.present? %>
+          <%shipped_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "Shipped").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "shipped").last.present? %>
+          <%delivered_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "Delivered").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "delivered").last.present? %>
+          <%intransit_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "intransit").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "intransit").last.present? %>
+         
+          <div class="progress" style="height:30px">
+
+          <%if @customer_order.status =="success" %>
+            <div class="progress-bar progress-bar-info bar-size" role="progressbar">
+              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
+          </div>
+
+          <% elsif @customer_order.status =="intransit"%>
+            <div class="progress-bar progress-bar-info bar-size" role="progressbar">
+              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
+            </div>
+            <div class="progress-bar progress-bar-warning bar-size" role="progressbar" >
+              <p ><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= intransit_date %>"> <strong> Intransit </strong></a></p>
+            </div>
+           <% elsif @customer_order.status =="shipped"%>
+            <div class="progress-bar progress-bar-info bar-size" role="progressbar" >
+              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom"  data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
+            </div>
+            <div class="progress-bar progress-bar-warning bar-size" role="progressbar" >
+              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= intransit_date %>"> <strong> Intransit </strong></a></p>
+            </div>
+            <div class="progress-bar progress-bar-success bar-size" role="progressbar">
+              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= shipped_date %>"> <strong> Shipped </strong></a></p>
+            </div>
+          <% elsif @customer_order.status =="delivered"%>
+            <div class="progress-bar progress-bar-info bar-size" role="progressbar" >
+              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
+            </div>
+            <div class="progress-bar progress-bar-warning bar-size" role="progressbar">
+              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= intransit_date %>"> <strong> Intransit </strong></a></p>
+            </div>
+            <div class="progress-bar progress-bar-primary bar-size" role="progressbar">
+              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= shipped_date %>"> <strong> shipped </strong></a></p>
+            </div>
+            <div class="progress-bar progress-bar-success bar-size" role="progressbar" >
+              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= delivered_date %>"> <strong> Delivered </strong></a></p>
+            </div>
+          <% end %>
+        </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
