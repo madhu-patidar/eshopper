@@ -107,8 +107,8 @@
         </div>
         <div class="modal-body">
           <%ordered_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "success").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "success").last.present? %>
-          <%shipped_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "Shipped").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "shipped").last.present? %>
-          <%delivered_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "Delivered").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "delivered").last.present? %>
+          <%shipped_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "shipped").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "shipped").last.present? %>
+          <%delivered_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "delivered").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "delivered").last.present? %>
           <%intransit_date = TrackOrder.where(customer_order_id: @customer_order.id, status: "intransit").last.created_at.strftime("%d %B %Y") if TrackOrder.where(customer_order_id: @customer_order.id, status: "intransit").last.present? %>
          
           <div class="progress" style="height:30px">
