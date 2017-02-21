@@ -15,7 +15,7 @@
                   <%= link_to product_path(related_product) do%>
                     <p><acronym title="<%= product.name %>"> <%= truncate(related_product.name , length:23) %></acronym></p>
                   <% end %>
-                  <% if current_customer.cart_items.pluck(:product_id ).include?(related_product.id) %>
+                  <% if customer_signed_in? && current_customer.cart_items.pluck(:product_id ).include?(related_product.id) %>
                     <%= link_to(cart_items_path, class: "btn btn-default add-to-cart") do %>
                       <i class="fa fa-shopping-cart"></i>Go to Cart
                     <% end -%>
