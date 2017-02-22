@@ -5,6 +5,10 @@
       <td><%= @cart_sub_total %></td>
     </tr>
     <tr>
+      <td>Discount</td>
+      <td> <%= @discount %></td>
+    </tr>
+    <tr>
       <td>Exo Tax</td>
       <td><%= @tax %></td>
     </tr>
@@ -14,7 +18,7 @@
     </tr>
     <tr>
       <td>Total</td>
-      <td ><span ><%= @total %></span></td>
+      <td ><span > &#8377; <%= @total %></span></td>
     </tr>
   </table>
 <% end %>

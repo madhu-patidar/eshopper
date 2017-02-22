@@ -1,41 +1,16 @@
 class CartItemsController < ApplicationController
- 
-  before_action :set_cart_item, only: [ :edit,  :destroy]
+  include CartItemsHelper
+
   before_action :authenticate_customer!
+  before_action :set_cart_item, only: [ :edit,  :destroy]
 
   # GET /cart_items
   # GET /cart_items.json
   def index
-    @cart_sub_total,@cart_sub_total = 0,0
     @cart_items = current_customer.cart_items
-    
-    @cart_items.each_with_index do |item,index|
-      @cart_sub_total += item.quantity*item.product.price
-    end
-    @shipping_cost = 0
-    @shipping_cost1 = @shipping_cost
-    
-    if @shipping_cost == 0
-      @shipping_cost1 = "Free"
-    end
-
-    @tax = (@cart_sub_total*1)/100
-    @total = @cart_sub_total + @shipping_cost + @tax
+    @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
   end
 
-
- 
-  # GET /cart_items/new
-  def new
-    @cart_item = CartItem.new
-  end
-
-  # GET /cart_items/1/edit
-  def edit
-  end
-
-  # POST /cart_items
-  # POST /cart_items.json
   def create
     quantity = 1
 
@@ -60,10 +35,9 @@ class CartItemsController < ApplicationController
       respond_to do |format|
         if @cart_item.save
           @product.quantity -= quantity
-          # @product.save
           @cart_items = CartItem.where(customer_id: current_customer.id)
           format.html { redirect_to :back }
-          format.js { }
+          format.js
           format.json { render :back, status: :created, location: @cart_item }
         else
           format.html { render :back }
@@ -111,27 +85,10 @@ class CartItemsController < ApplicationController
 
     respond_to do |format|
       if @cart_item.save
-        @cart_items = CartItem.where(customer_id: current_customer.id)
-
-        @cart_sub_total,@cart_sub_total = 0,0
-        @cart_items = current_customer.cart_items
-        
-        @cart_items.each_with_index do |item,index|
-          @cart_sub_total += item.quantity*item.product.price
-        end
-        
-        @shipping_cost = 0
-        @shipping_cost1 = @shipping_cost
-        
-        if @shipping_cost == 0
-          @shipping_cost1 = "Free"
-        end
-
-        @tax = (@cart_sub_total*1)/100
-        @total = @cart_sub_total + @shipping_cost + @tax
+        @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
 
         format.html { redirect_to :back, notice: 'Cart item was successfully updated.' }
-        format.js { }
+        format.js
         format.json { render :show, status: :ok, location: @cart_item }
       else
         format.html { render :edit }
@@ -145,26 +102,8 @@ class CartItemsController < ApplicationController
   def destroy
     @cart_sub_total = 0
     @product = Product.find(@cart_item.product_id)
-    @product.quantity += @cart_item.quantity
     @cart_item.destroy
-    @product.save
-    @cart_items = current_customer.cart_items
-      
-    @cart_sub_total,@cart_sub_total = 0,0
-    @cart_items = current_customer.cart_items
-    
-    @cart_items.each_with_index do |item,index|
-      @cart_sub_total += item.quantity*item.product.price
-    end
-    @shipping_cost = 0
-    @shipping_cost1 = @shipping_cost
-    
-    if @shipping_cost == 0
-      @shipping_cost1 = "Free"
-    end
-
-    @tax = (@cart_sub_total*1)/100
-    @total = @cart_sub_total + @shipping_cost + @tax
+    @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
 
     respond_to do |format|
       format.html { redirect_to cart_item_url, notice: 'Cart item was successfully destroyed.' }
@@ -185,4 +124,5 @@ class CartItemsController < ApplicationController
       # params.fetch(:cart_item, {})
       params.require(:cart_item).permit(:customer_id, :product_id, :quantity)
     end
+    
 end

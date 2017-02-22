@@ -1,6 +1,28 @@
 /*price range*/
 
  // $('#sl2').slider();
+  
+function use_coupon() 
+{ 
+  var code = $("#coupon").val(); 
+  $.ajax({
+      type: "GET",
+      url: "/coupons/create",
+      dataType : 'script',
+      data: {'code':code}
+    });
+};
+
+function delete_coupon() 
+{ 
+  var code = $("#used-coupon").val(); 
+  $.ajax({
+      type: "GET",
+      url: "/coupons/destroy",
+      dataType : 'script',
+      data: {'code':code}
+    });
+};
 
 	var RGBChange = function() {
 	  $('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')

@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   
   def index
     @banners = Banner.all
-    @top_brands = Brand.take(10)
+    @top_brands = Brand.all
     @categories = Category.all
     @category = Category.last
     

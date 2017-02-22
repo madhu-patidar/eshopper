@@ -1,7 +1,8 @@
 class CustomerOrdersController < ApplicationController
+  include CartItemsHelper
+
   before_action :authenticate_customer!
   before_action :set_customer_order, only: [:show, :edit, :update, :destroy, :payment,:cancel_order]
-  before_action :set_amount, only: [:payment, :create]
   before_action :set_invoice_amount, only: [:invoice, :order_detail]
 
   # GET /customer_orders
@@ -16,17 +17,7 @@ class CustomerOrdersController < ApplicationController
 
   end
 
-  def payment
-  end
-
-  def invoice
-  end
-
-  def order_detail
-    if !current_customer.customer_orders.pluck(:id).include?(params[:id].to_i)
-      redirect_to root_path
-    end
-  end
+ 
   # GET /customer_orders/new
   def new
     @customer_order = CustomerOrder.new
@@ -53,6 +44,8 @@ class CustomerOrdersController < ApplicationController
   # POST /customer_orders
   # POST /customer_orders.json
   def create
+    @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
+     @amount = @total
    if CustomerOrder.find_by(status: "pending").present?
       @customer_order = CustomerOrder.find_by(status: "pending")
 
@@ -90,6 +83,25 @@ class CustomerOrdersController < ApplicationController
     end
   end
 
+  def invoice
+  end
+
+  def order_detail
+    if !current_customer.customer_orders.pluck(:id).include?(params[:id].to_i)
+      redirect_to root_path
+    end
+  end
+
+
+  def payment
+    binding.pry
+    
+    @cart_items = current_customer.cart_items
+    @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
+    @amount = @total
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer_order
@@ -101,23 +113,6 @@ class CustomerOrdersController < ApplicationController
       params.require(:customer_order).permit(:customer_id, :address_id, :status, :grand_total, :shipping_charges)
     end
 
-  def set_amount
-    @cart_sub_total,@cart_sub_total = 0,0
-    @cart_items = current_customer.cart_items
-      
-    @cart_items.each_with_index do |item,index|
-      @cart_sub_total += item.quantity*item.product.price
-    end
-    @shipping_cost = 0
-    @shipping_cost1 = @shipping_cost
-    
-    if @shipping_cost == 0
-      @shipping_cost1 = "Free"
-    end
-
-    @tax = (@cart_sub_total*1)/100
-    @amount = @cart_sub_total + @shipping_cost + @tax
-  end
 
   def set_invoice_amount
     if !current_customer.customer_orders.pluck(:id).include?(params[:id].to_i)

@@ -1,4 +1,6 @@
 class ChargesController < ApplicationController
+  include CartItemsHelper
+  
   before_action :set_amount, only: [:new, :create, :payment_success]
 
 
@@ -6,7 +8,6 @@ class ChargesController < ApplicationController
   end
 
   def create
-    # Amount in cents
     customer = Stripe::Customer.create(
       :email => params[:stripeEmail],
       :source  => params[:stripeToken]
@@ -22,9 +23,14 @@ class ChargesController < ApplicationController
 
     if params[:stripeToken].present?
       @customer_order = CustomerOrder.find_by(status: "pending",customer_id: current_customer.id)
-      @customer_order.status = "succesfully"
+      @customer_order.status = "success"
       @online_transaction = OnlineTransaction.create(transaction_id: charge[:id], amount: charge[:amount], stripe_token: params[:stripeToken],stripe_email: params[:stripeEmail],customer_id: current_customer.id, customer_order_id:  @customer_order.id )
       @customer_order.save
+      if session[:applied_coupon].present?
+        @coupon = Coupon.find_by(code: session[:applied_coupon])
+        @used_coupon = UsedCoupon.create(customer_id: current_customer.id, customer_order_id: @customer_order.id, coupon_id: @coupon.id )
+        session[:applied_coupon] = nil
+      end
       current_customer.cart_items.each do |item|
         OrderDetail.create(customer_order_id: @customer_order.id, product_id: item.product.id, quantity: item.quantity, amount: item.quantity*item.product.price)
         item.product.quantity -= item.quantity
@@ -60,21 +66,8 @@ class ChargesController < ApplicationController
   end
   
   def set_amount
-    @cart_sub_total,@cart_sub_total = 0,0
-    @cart_items = current_customer.cart_items
-      
-    @cart_items.each_with_index do |item,index|
-      @cart_sub_total += item.quantity*item.product.price
-    end
-    @shipping_cost = 0
-    @shipping_cost1 = @shipping_cost
-    
-    if @shipping_cost == 0
-      @shipping_cost1 = "Free"
-    end
-
-    @tax = (@cart_sub_total*1)/100
-    @amount = @cart_sub_total + @shipping_cost + @tax
+    @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
+     @amount = @total
   end
 
 

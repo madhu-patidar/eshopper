@@ -19,23 +19,22 @@
           <tbody>
             <% current_customer.cart_items.each do |item|%>
                 <tr id="item-<%=item.id %>">
-                   <%= render "cart_items/cart_item", item: item %>
+                   <%= render "items", item: item %>
                 </tr>
               <% end %>
-              <td colspan="4">&nbsp;</td>
-              <td colspan="2">
-              <div id="checkout_total_area">
-                <%= render "total_area", :locals => {:tax => @tax, :cart_sub_total => @cart_sub_total, :total => @total}%>
-              </div>
-              </td>
-            </tr>
+              <tr>
+                <td colspan="4"></td>
+                <td>
+                  <%= render "total_area", :locals => {:tax => @tax, :cart_sub_total => @cart_sub_total, :total => @total}%>
+                </td>
+              </tr>           
           </tbody>
         </table>
       </div>
-      <div class="cuntinue-payment-button row">
+
+      <div class="cuntinue-payment-button row" style="margin-top:70px">
         <div class="col-sm-2 col-sm-offset-5">
-          
-            <%= link_to(customer_orders_path(address_id: @address.id),:method => :post,  class: "btn btn-default") do %>Continue To Pay<% end%>
+          <%= link_to(customer_orders_path(address_id: @address.id),:method => :post,  class: "btn btn-default") do %>Continue To Pay<% end%>
         </div>
       <div>
     </div>

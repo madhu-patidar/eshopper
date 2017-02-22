@@ -1,0 +1,22 @@
+<td class="cart_product">
+  <%= link_to product_path(item.product) do %><%= image_tag(item.product.pictures.first.image.url,size: "100x100") %>
+  <% end %>
+</td>
+<td class="cart_description" >
+  <div class="tb_data">
+    <h5 ><%= link_to product_path(item.product) do %><%=item.product.name%><% end %></h5>
+  </div>
+</td>
+<td class="cart_price tb_data">
+  <p>&#8377;<%=item.product.price%></p>
+</td>
+<td class="cart_price tb_data">
+  <p> <%= item.quantity%></p>
+</td>
+<td class="cart_total">
+  <p class="cart_total_price">
+    &#8377;<%=item.quantity*item.product.price%>
+  </p>
+</td>
+<td class="cart_delete">
+</td>

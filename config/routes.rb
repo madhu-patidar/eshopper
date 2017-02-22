@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
 
   
+  get 'coupons/create'
+
+  get 'coupons/destroy'
+
   resources :contacts
-  resources :wish_lists
+  resources :wish_lists, only: [:index, :create, :destroy]
   resources :customer_orders
   
   resources :customer_orders do
@@ -19,7 +23,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :addresses
+  resources :addresses, only: [:create, :edit, :update, :destroy]
   resources :checkouts
   get 'review_payment', to: "checkouts#review_payment"
    
@@ -28,7 +32,7 @@ Rails.application.routes.draw do
   resources :categories do
     resources :brands
   end
-  resources :brands
+  resources :brands, only: [:index, :show]
   resources :charges
   
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -44,13 +48,13 @@ end
       get 'cart'
     end
   end
-  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'home#index'
+  get "*unmatched_routes" => "application#render_404"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

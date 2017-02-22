@@ -1830,14 +1830,14 @@ h2.title {
 
 
 .chose_area .update {
-  margin-left: 40px;
+  margin-left: 70px;
 }
 
 .update, .check_out {
   background: #FE980F;
   border-radius: 0;
   color: #FFFFFF;
-  margin-top: 18px;
+  margin-top: 1px;
   border: none;
   padding: 5px 15px;
 }
@@ -1846,7 +1846,7 @@ h2.title {
 }
 
 .check_out {
-  margin-left: 20px
+  margin-left: 40px
 }
 
 

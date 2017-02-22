@@ -8,8 +8,9 @@
               <p><%= flash[:error] %></p>
             </div>
           <% end %>
+
           <label class="amount">
-            <span>Amount: &#8377;<%= @amount %> </span>
+            <span>Amount: &#8377;<%= @customer_order.grand_total %> </span>
           </label>
         </article>
 

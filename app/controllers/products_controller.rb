@@ -1,19 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-  # GET /products
-  # GET /products.json
-  def index
-    @products = Product.all
-    @banners = Banner.all
-    @top_brands = Brand.all
-    @categories = Category.all
-    @category = Category.first
-    @brands = Brand.all
-  end
-
-  # GET /products/1
-  # GET /products/1.json
   def show
     @categories = Category.all
     @top_brands = Brand.take(10)

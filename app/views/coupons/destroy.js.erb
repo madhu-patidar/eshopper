@@ -1,0 +1,1 @@
+$('#total_area').html("<%= j (render partial: 'cart_items/total_area', :locals => {:tax => @tax, :cart_sub_total => @cart_sub_total, :discount => @discount}) %>");
