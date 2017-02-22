@@ -54,7 +54,7 @@
                   <td><%=order.product.name%></td>
                   <td class="text-center">&#8377;<%=order.product.price%></td>
                   <td class="text-center"><%=order.quantity%></td>
-                  <td class="text-right">&#8377;<%=  subtotal += order.quantity*order.product.price %></td>
+                  <td class="text-right">&#8377;<%= order.quantity*order.product.price %></td>
                  
                 </tr>
                 <%end%>
@@ -75,6 +75,13 @@
                   <td class="no-line"></td>
                   <td class="no-line text-center"><strong>Tax</strong></td>
                   <td class="no-line text-right">&#8377;<%= @tax %></td>
+                </tr>
+                 </tr>
+                 <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Discount</strong></td>
+                  <td class="no-line text-right">-&#8377;<%= @discount %></td>
                 </tr>
                 <tr class="cancel-button cancel-payment">
                   <td class="no-line " ><%if @customer_order.status !="delivered" &&  @customer_order.status !="failed" &&  @customer_order.status != "cancel" %><%= link_to "Cancel Order", cancel_order_customer_order_path(@customer_order),  class: "btn btn-default" %><% end %>&nbsp;&nbsp;

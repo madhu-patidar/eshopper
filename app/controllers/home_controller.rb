@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   
   def index
-    @banners = Banner.all
-    @top_brands = Brand.all
+    @banners = Banner.where(status: true)
+    @top_brands = Brand.brand_with_product
     @categories = Category.all
     @category = Category.last
     

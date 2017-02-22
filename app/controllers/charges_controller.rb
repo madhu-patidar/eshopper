@@ -24,19 +24,23 @@ class ChargesController < ApplicationController
     if params[:stripeToken].present?
       @customer_order = CustomerOrder.find_by(status: "pending",customer_id: current_customer.id)
       @customer_order.status = "success"
-      @online_transaction = OnlineTransaction.create(transaction_id: charge[:id], amount: charge[:amount], stripe_token: params[:stripeToken],stripe_email: params[:stripeEmail],customer_id: current_customer.id, customer_order_id:  @customer_order.id )
       @customer_order.save
+      
+      @online_transaction = OnlineTransaction.create(transaction_id: charge[:id], amount: charge[:amount], stripe_token: params[:stripeToken],stripe_email: params[:stripeEmail],customer_id: current_customer.id, customer_order_id:  @customer_order.id )
+
       if session[:applied_coupon].present?
         @coupon = Coupon.find_by(code: session[:applied_coupon])
         @used_coupon = UsedCoupon.create(customer_id: current_customer.id, customer_order_id: @customer_order.id, coupon_id: @coupon.id )
         session[:applied_coupon] = nil
       end
+
       current_customer.cart_items.each do |item|
         OrderDetail.create(customer_order_id: @customer_order.id, product_id: item.product.id, quantity: item.quantity, amount: item.quantity*item.product.price)
         item.product.quantity -= item.quantity
         item.product.save 
         item.destroy
       end
+      
       OrderMailer.order_email(current_customer, @customer_order).deliver
   end
 

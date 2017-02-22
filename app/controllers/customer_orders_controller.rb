@@ -32,7 +32,7 @@ class CustomerOrdersController < ApplicationController
     transaction = @transaction.transaction_id
     charge = Stripe::Charge.retrieve(transaction)
     charge.refund
-    @customer_order.status = "canceled"
+    @customer_order.status = "cancel"
     @customer_order.save
     @customer_order.order_details.each do |item|
         item.product.quantity += item.quantity
@@ -118,20 +118,33 @@ class CustomerOrdersController < ApplicationController
     if !current_customer.customer_orders.pluck(:id).include?(params[:id].to_i)
       redirect_to root_path
     else
-      @customer_order = CustomerOrder.find(params[:id])
+      @discount = 0
       @order_sub_total = 0
+      @customer_order = CustomerOrder.find(params[:id])
+      used_coupon = UsedCoupon.find_by(customer_order_id: @customer_order.id, customer_id: current_customer.id)
+      if @used_coupon.present?
+        coupon = Coupon.find(used_coupon.coupon.id)
+      end
+
       @customer_order.order_details.each do |item|
         @order_sub_total += item.quantity*item.product.price
       end
-      @shipping_cost = 0
-      @shipping_cost1 = @shipping_cost
-      
-      if @shipping_cost == 0
-        @shipping_cost1 = "Free"
+      if coupon.present?
+        @discount =  (@order_sub_total*coupon.percent_off)/100
       end
+    @shipping_cost = 0
+    if  @order_sub_total > 2500
+      @shipping_cost = 50
+    end
 
-      @tax = (@order_sub_total*1)/100
-      @total = @order_sub_total + @shipping_cost + @tax
+    @shipping_cost1 = @shipping_cost
+    
+    if @shipping_cost == 0
+      @shipping_cost1 = "Free"
+    end
+
+    @tax = (@order_sub_total*1)/100
+    @total = @order_sub_total + @shipping_cost + @tax - @discount
     end
   end
 

@@ -1,11 +1,13 @@
 <section id="form"><!--form-->
   <div class="container">
-    <div class="panel panel-default">
-      <div class="panel-body">
         <div class="row">
       <div class="col-sm-4 col-sm-offset-4">
+    <div class="panel panel-default">
+       <div class="panel-heading">
+            <h4 align="center">Forgot your password</h4>
+          </div>
+      <div class="panel-body">
         <div class="login-form"><!--Forget password form-->
-          <h2>Forgot your password?</h2>
           <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
               <%= devise_error_messages! %>
             <%= f.email_field :email, autofocus: true,placeholder: "Email" %>

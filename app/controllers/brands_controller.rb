@@ -4,8 +4,7 @@ class BrandsController < ApplicationController
   # GET /brands
   # GET /brands.json
   def index
-    @top_brands = Brand.all
-    @brands = Brand.all
+    @top_brands = Brand.brand_with_product
     @categories = Category.all
     @category = Category.first
     @brand = Brand.find(params[:id])
@@ -14,8 +13,7 @@ class BrandsController < ApplicationController
   end
 
   def show
-    @top_brands = Brand.take(10)
-    @brands = Brand.all
+    @top_brands = Brand.brand_with_product
     @categories = Category.all
     @category = Category.find(params[:category_id])
     @sub_categories = @brand.categories.where(category_id: params[:category_id]).order(:id)

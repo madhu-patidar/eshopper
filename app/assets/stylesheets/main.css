@@ -1500,6 +1500,16 @@ h2.title {
   padding: 6px 25px;
 }
 
+.cancel-acount-button form input{
+  background: #FE980F;
+  border: medium none;
+  border-radius: 8;
+  color: #FFFFFF;
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  padding: 6px 25px;
+}
+
 .product-information1 a {
   background: #FE980F;
   border: medium none;
