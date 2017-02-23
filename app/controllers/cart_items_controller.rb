@@ -101,6 +101,7 @@ class CartItemsController < ApplicationController
   # DELETE /cart_items/1.json
   def destroy
     @cart_sub_total = 0
+    @cart_items = current_customer.cart_items
     @product = Product.find(@cart_item.product_id)
     @cart_item.destroy
     @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
