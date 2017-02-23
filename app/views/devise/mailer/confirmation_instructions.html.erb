@@ -18,8 +18,17 @@
             <p>Dear <%= @resource.first_name.present? ? @resource.first_name :  @resource.email %>, </p>
             <p style="line-height: 200%;">
               &#09;&#09;Congratulations! Your Account has been verified. To log in when visiting our site just click Sign in at the top of home page, and then enter your e-mail address and password.</p>
-        </tr>
-      </tbody>
-    </table>
-  </body>
+         <br><br>
+          <p style="line-height: 200%;"><strong>Note: </strong> Please do not reply back to this mail. This is sent from an unattended mail box.This e-mail was sent from EShopper.</p>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td style="background:#f4f4f4; padding:15px 0; text-align:center; color:#777;">&copy; EShopper, 2017 · All Rights Reserved.<%=link_to("http://madhu-eshopper.herokuapp.com/contacts", style: "color:#052B48;text-decoration:none", target: "_blank") do %> eshopper.com <% end %></td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
 </html>
+
