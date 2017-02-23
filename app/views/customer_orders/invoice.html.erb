@@ -2,10 +2,10 @@
   <div class="row">
       <div class="col-xs-12">
         <div class="invoice-title">
-        <h2>Invoice</h2>
-        <h3 class="pull-right">Order # <%= current_customer.customer_orders.last.id%></h3>
-      </div>
-      <hr>
+          <h2>Invoice</h2>
+          <h3 class="pull-right">Order # <%= current_customer.customer_orders.last.id%></h3>
+        </div>
+        <hr>
       <div class="row">
         <div class="col-xs-6">
           <address>
@@ -27,74 +27,78 @@
       <div class="row">
         <div class="col-xs-6">
           <address>
-            <strong>Payment Method:</strong><br>
-            Visa ending **** 4242<br>
           </address>
         </div>
         <div class="col-xs-6 text-right">
         </div>
       </div>
+    </div>
   </div>
-  </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Order summary</strong></h3>
-          </div>
-          <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-condensed">
-                <thead>
-                                <tr>
-                      <td><strong>Item</strong></td>
-                      <td class="text-center"><strong>Price</strong></td>
-                      <td class="text-center"><strong>Quantity</strong></td>
-                      <td class="text-right"><strong>Totals</strong></td>
-                                </tr>
-                </thead>
-                <tbody>
-                  <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                  <% subtotal = 0 %>
-                  <% @customer_order.order_details.each do |order|%>
-                  <tr>
-                    <td><%=order.product.name%></td>
-                    <td class="text-center">&#8377;<%=order.product.price%></td>
-                    <td class="text-center"><%=order.quantity%></td>
-                    <td class="text-right">&#8377;<%=  subtotal += order.quantity*order.product.price %></td>
-                   
-                  </tr>
-                  <%end%>
-                  <tr>
-                    <td class="thick-line"></td>
-                    <td class="thick-line"></td>
-                    <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                    <td class="thick-line text-right">&#8377;<%= @order_sub_total %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Shipping</strong></td>
-                    <td class="no-line text-right"><%= @shipping_cost1 %></td>
-                  </tr>
-                   <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Tax</strong></td>
-                    <td class="no-line text-right">&#8377;<%= @tax %></td>
-                  </tr>
-                  <tr class="cancel-button cancel-payment">
-                    <td class="no-line " ></td>
-                    <td class="no-line"></td>
-                   
-                    <td class="no-line text-center"><strong>Total</strong></td>
-                    <td class="no-line text-right">&#8377;<%= @total %></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Order summary</strong></h3>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <thead>
+                              <tr>
+                    <td><strong>Item</strong></td>
+                    <td class="text-center"><strong>Price</strong></td>
+                    <td class="text-center"><strong>Quantity</strong></td>
+                    <td class="text-right"><strong>Totals</strong></td>
+                              </tr>
+              </thead>
+              <tbody>
+                <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                <% subtotal = 0 %>
+                <% @customer_order.order_details.each do |order|%>
+                <tr>
+                  <td><%=order.product.name%></td>
+                  <td class="text-center">&#8377;<%=order.product.price%></td>
+                  <td class="text-center"><%=order.quantity%></td>
+                  <td class="text-right">&#8377;<%=  subtotal += order.quantity*order.product.price %></td>
+                 
+                </tr>
+                <% end %>
+                <tr>
+                  <td class="thick-line"></td>
+                  <td class="thick-line"></td>
+                  <td class="thick-line text-center"><strong>Sub-total</strong></td>
+                  <td class="thick-line text-right">&#8377;<%= @order_sub_total %></td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Discount</strong></td>
+                  <td class="no-line text-right">- &#8377;<%= @discount %></td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Shipping</strong></td>
+                  <td class="no-line text-right"><%= @shipping_cost1 %></td>
+                </tr>
+                 <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Tax</strong></td>
+                  <td class="no-line text-right">&#8377;<%= @tax %></td>
+                </tr>
+                <tr class="cancel-button cancel-payment">
+                  <td class="no-line " ></td>
+                  <td class="no-line"></td>
+                 
+                  <td class="no-line text-center"><strong>Total</strong></td>
+                  <td class="no-line text-right">&#8377;<%= @total %></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>

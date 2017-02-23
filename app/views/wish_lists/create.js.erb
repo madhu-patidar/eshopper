@@ -1,4 +1,6 @@
 $('#product-list-<%=@product[:id]%>').html("<%= escape_javascript(render partial: 'components/content', :locals => { :product=> @product})
  %>");
+
 $("#add-product-to-wish-list").html("<%= j (render partial: 'wish_lists/wish_list_links', :locals => {:product => @product}) %>");
+
 $('#wish-list-item-count').html(" (" +<%= current_customer.wish_lists.count %>+ ") ");

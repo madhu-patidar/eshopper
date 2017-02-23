@@ -36,7 +36,7 @@
           <% order.order_details.each_with_index do |my_order,index|%>
             <div class="row">
               <div class="col-sm-2 col-sm-offset-1 list-my_order">
-                <%= link_to product_path(my_order.product) do %><%= image_tag(my_order.product.pictures.find_by(imageable_id: my_order.product.id).image.url,size: "100x100") %>
+                <%= link_to product_path(my_order.product) do %><%= image_tag(my_order.product.pictures.first.image.url,size: "100x100") %>
                 <% end %>
               </div>
               <div class="col-sm-9 list-my_order">

@@ -8,6 +8,7 @@ class Customer < ActiveRecord::Base
   has_many :addresses, dependent: :destroy
   has_many :customer_orders, dependent: :destroy
   has_many :wish_lists, dependent: :destroy
+  has_many :online_transactions, dependent: :destroy
 
   after_create :send_welcome_mail
 

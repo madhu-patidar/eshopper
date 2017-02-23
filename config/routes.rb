@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   get 'coupons/destroy'
 
   resources :contacts
+
   resources :wish_lists, only: [:index, :create, :destroy]
-  resources :customer_orders
+
+  resources :customer_orders, only: [:index, :create]
   
   resources :customer_orders do
     member do
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
       get 'order_detail'
     end
   end
+
   resources :charges do
     member do
       get 'payment_success'
@@ -24,22 +27,27 @@ Rails.application.routes.draw do
   end
 
   resources :addresses, only: [:create, :edit, :update, :destroy]
-  resources :checkouts
+
+  resources :checkouts, only: [:index]
+
   get 'review_payment', to: "checkouts#review_payment"
    
   resources :cart_items
-  resources :products
-  resources :categories do
-    resources :brands
+
+  resources :products, only: [:show]
+
+  resources :categories, only: [:show] do
+    resources :brands, only: [:index, :show]
   end
+
   resources :brands, only: [:index, :show]
+
   resources :charges
   
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :customers, :controllers => { :omniauth_callbacks => "customers/omniauth_callbacks" }
-
   as :user do
-  get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
+  get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'  
   put 'users' => 'devise/registrations#update', :as => 'user_registration'            
 end
 

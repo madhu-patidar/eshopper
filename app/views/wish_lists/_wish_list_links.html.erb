@@ -12,6 +12,6 @@
 <% else %>
 <span>
   <span id="add-to-wish-list">
-   <%= link_to(wish_lists_path(product_id: product.id), :method => :post, remote: true) do%><i class="fa fa-heart-o" aria-hidden="true"></i> <% end %>
+   <%= link_to(wish_lists_path(product_id: product.id), :method => :post) do%><i class="fa fa-heart-o" aria-hidden="true"></i> <% end %>
  </span>
 <% end %>

@@ -65,7 +65,6 @@
             <div class="shop-menu pull-right">
               <ul class="nav navbar-nav collapse navbar-collapse">
                
-                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                 <% if current_page?wish_lists_path %>
                   <% active1 = "active" %>
                 <% else %>
@@ -102,7 +101,9 @@
                             <li><%= link_to(customer_orders_path) do %>My Order<% end %></li><br>
                             <li><%= link_to(wish_lists_path) do %> Wishlist <% end %></li> <br>
                             <li><%= link_to(checkouts_path) do %>Checkout<% end %></li> <br>
-                            <li><%=link_to(cart_items_path) do %>Cart<% end %></li> 
+                            <li><%=link_to(cart_items_path) do %>Cart<% end %></li><br>
+                            <li><%= link_to "Edit Profile", edit_registration_path(current_customer) %><br />
+  </li> 
                         </ul>
                       </li>
                     <% else %>
