@@ -24,7 +24,7 @@
               <% end %>
              </span> 
             <span class="wish-list-remove-button">
-              <%= link_to(wish_list_path(item), class: "cart_quantity_delete ", method: :delete, remote: true, data: {confirm: "Do you want ?"}) do %>
+              <%= link_to(wish_list_path(item), class: "cart_quantity_delete ", method: :delete, remote: true, data: {confirm: "Do you want to remove item from Wish list?"}) do %>
                  <i class="glyphicon glyphicon-trash"></i> Remove
               <%end%>
             </span>  

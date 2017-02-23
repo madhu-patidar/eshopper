@@ -12,8 +12,6 @@
               <%= devise_error_messages! %>
             <%= f.email_field :email, autofocus: true,placeholder: "Email" %>
             <span>
-              <%= f.check_box :remember_me,class:"checkbox" %>
-              Keep me signed in
             </span><%= f.button "Send me reset password instructions",type: "submit", class:"btn btn-default" %>
           <% end %>
         </div><!--/-Forget password  form-->
