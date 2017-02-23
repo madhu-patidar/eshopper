@@ -39,7 +39,9 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.assets.quiet = true
-  #config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  
+  config.action_mailer.default_url_options = { host: 'madhu-eshopper.herokuapp.com' }
+
   config.assets.quiet = true
   config.action_mailer.delivery_method = :smtp
   
@@ -47,7 +49,7 @@ Rails.application.configure do
    config.action_mailer.smtp_settings = {
       :address => "smtp.gmail.com",
       :port => 587,
-      :domain => 'localhost:3000',
+      :domain => 'madhu-eshopper.herokuapp.com',
       :user_name => "madhupatidar909@gmail.com",
       :password => "Madhu123@",
       :authentication => :plain,

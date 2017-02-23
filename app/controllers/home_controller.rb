@@ -4,7 +4,6 @@ class HomeController < ApplicationController
     @banners = Banner.where(status: true)
     @top_brands = Brand.brand_with_product
     @categories = Category.all
-    @category = Category.last
     
     if params[:sub_category_id].present?
       @sub = Category.find(params[:sub_category_id])

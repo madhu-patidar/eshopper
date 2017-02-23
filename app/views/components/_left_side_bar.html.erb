@@ -17,7 +17,7 @@
                 </a>
               </h4>
             </div>
-            <div id="<%= category.id %>" class=" collapse <%= category.id == @category.id ? 'in' : '' %>" >
+            <div id="<%= category.id %>" class=" collapse <%= category.id == @category.id ? 'in' : '' if @category.present? %>" >
               <% if category.brands.present? %>
                 <div class="panel-body">
                   <ul>

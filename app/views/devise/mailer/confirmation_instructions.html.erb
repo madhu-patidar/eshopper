@@ -1,5 +1,25 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<html>
+  <head>
+    <title>EShopper</title>
+    <style type="text/css">
+      *{margin:0px; padding:0; font-family:arial; color:#232323; font-size:14px;}
+    </style>
+  </head>
+  <body>
+    <table style="border:1px solid #f1f1f1; margin:auto; text-align:center;" width="800" align="center" bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td style="padding:15px;" align="left">
+            <h4 style="margin:15px;text-decoration:underline" align="center">Account Confirmation</h4>
+            <h6 style="line-height: 200%;">
+              <span style="text-decoration:underline">From: </span>
+              <span style="text-decoration:underline"> EShopper</span> </h6>
+            <p style="line-height: 200%;"><span style="text-decoration:underline;"><strong>Subject:</strong></span> </strong>Congratulations! Your Account has been verified.</strong></p>
+            <p>Dear <%= @resource.first_name.present? ? @resource.first_name :  @resource.email %>, </p>
+            <p style="line-height: 200%;">
+              &#09;&#09;Congratulations! Your Account has been verified. To log in when visiting our site just click Sign in at the top of home page, and then enter your e-mail address and password.</p>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
