@@ -28,7 +28,7 @@ class AddressesController < ApplicationController
   end
 
   def destroy
-   respond_to do |format|
+    respond_to do |format|
       if @address.update(status: "inactive")
         format.html { redirect_to  checkouts_path }
         format.js
@@ -48,4 +48,5 @@ class AddressesController < ApplicationController
     def address_params  
       params[:address].permit(:customer_id, :address_1, :address_2, :city, :state, :country, :zipcode, :address_type, :name, :mobile_number)  
     end
+    
 end

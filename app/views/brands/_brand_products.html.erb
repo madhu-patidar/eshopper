@@ -1,9 +1,9 @@
- <%if @products.present? %>
+ <% if @products.present? %>
   <% @products.each do |product| %>
     <div class="tab-pane fade active in" id="product-list-<%=product.id%>" >
       <%= render "components/content" ,product: product %>
     </div>
-  <%end%>
+  <% end %>
 <% else %>
   <h2 align="center"> Product not available</h2>
 <% end %>

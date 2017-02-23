@@ -2,7 +2,7 @@ $("#item-<%=@cart_item[:id]%>").remove();
 
 $('#total_area').html("<%= j (render partial: 'total_area', :locals => {:tax => @tax, :cart_sub_total => @cart_sub_total, :discount => @discount}) %>");
 
-$('#cart-item-count').html(<% if @cart_items.count > 0 %>" (" +<%= @cart_items.count %>+ " )" <% else %> "" <% end %>)
+$('#cart-item-count').html(<% if @cart_items.count > 0 %>" (" +<%= @cart_items.count %>+ " )" <% else %> "" <% end %>);
 
 $('#empty').html("<%= j (render partial: 'empty_item') %>");
 

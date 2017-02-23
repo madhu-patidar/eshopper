@@ -19,68 +19,53 @@ class CartItemsController < ApplicationController
     end
 
     @product = Product.find(params[:product_id])
-
-    if @product.quantity >= quantity && quantity > 0 
-      @cart_item = CartItem.where(product_id: params[:product_id],customer_id:current_customer.id).first
-      
-      if @cart_item.present?
-        @cart_item.quantity += quantity
-      else
-        @cart_item = CartItem.new(product_id: params[:product_id],customer_id: current_customer.id, quantity: quantity)
-      end
-      @wish_list1 = WishList.where(product_id: params[:product_id]).first
-      if @wish_list1.present?
-        @wish_list = @wish_list1
-      end
-      respond_to do |format|
-        if @cart_item.save
-          @product.quantity -= quantity
-          @cart_items = CartItem.where(customer_id: current_customer.id)
-          format.html { redirect_to :back }
-          format.js
-          format.json { render :back, status: :created, location: @cart_item }
-        else
-          format.html { render :back }
-          format.json { render json: @coustomer.errors, status: :unprocessable_entity }
-        end
-      end
-
+    @cart_item = CartItem.find_by(product_id: params[:product_id], customer_id:current_customer.id)
+    
+    if @cart_item.present?
+      @cart_item.quantity += quantity
     else
-      redirect_to :back
+      @cart_item = CartItem.new(product_id: params[:product_id], customer_id: current_customer.id, quantity: quantity)
     end
+
+    wish_list = WishList.find_by(product_id: params[:product_id])
+    if wish_list.present?
+      @wish_list = wish_list
+    end
+
+    respond_to do |format|
+      if @cart_item.save
+        @cart_items = CartItem.where(customer_id: current_customer.id)
+        format.html { redirect_to :back }
+        format.js
+        format.json { render :back, status: :created, location: @cart_item }
+      else
+        format.html { render :back }
+        format.json { render json: @coustomer.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
   
 
   # PATCH/PUT /cart_items/1
   # PATCH/PUT /cart_items/1.json
   def update
-    quantity, @cart_sub_total = 1,0
+    quantity = 1
     @cart_item = CartItem.find(params[:id])
     @product = Product.find(params[:product_id])
     
     if params.include?(:quantity)
-      qty = params[:quantity].to_i
-      qty1 =  @cart_item.quantity
-      quantity = qty - qty1
+      current_quantity = params[:quantity].to_i
+      previous_quantity =  @cart_item.quantity
+      quantity = current_quantity - previous_quantity
     end
     
     if params[:qty] == "minus" 
-      if @cart_item.quantity > 1
         @cart_item.quantity -= quantity
-      end
-
     elsif params[:qty] == "plus"
-      if @product.quantity > 0
         @cart_item.quantity += quantity
-      end
-
     else
-      if quantity > 0
-          @cart_item.quantity += quantity
-      else 
-          @cart_item.quantity +=  quantity
-      end
-
+       @cart_item.quantity += quantity
     end
 
     respond_to do |format|
@@ -89,9 +74,9 @@ class CartItemsController < ApplicationController
 
         format.html { redirect_to :back, notice: 'Cart item was successfully updated.' }
         format.js
-        format.json { render :show, status: :ok, location: @cart_item }
+        format.json { render :back, status: :ok, location: @cart_item }
       else
-        format.html { render :edit }
+        format.html { render :back }
         format.json { render json: @cart_item.errors, status: :unprocessable_entity }
       end
     end
@@ -100,10 +85,9 @@ class CartItemsController < ApplicationController
   # DELETE /cart_items/1
   # DELETE /cart_items/1.json
   def destroy
-    @cart_sub_total = 0
-    @cart_items = current_customer.cart_items
-    @product = Product.find(@cart_item.product_id)
     @cart_item.destroy
+    @cart_items = current_customer.cart_items
+    @product = @cart_item.product
     @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
 
     respond_to do |format|
@@ -115,15 +99,9 @@ class CartItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_cart_item
       @cart_item = CartItem.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def cart_item_params
-      # params.fetch(:cart_item, {})
-      params.require(:cart_item).permit(:customer_id, :product_id, :quantity)
     end
     
 end

@@ -3,4 +3,5 @@ $('#product-list-<%=@product[:id]%>').html("<%= escape_javascript(render partial
 $('#cart-item-count').html(" (" +<%= @cart_items.count %>+ ") ");
 
 $('#wish-list-item-<%=@wish_list[:id]%>').html("<%= j (render partial: 'wish_lists/wish_list_item', :locals => {:item => @wish_list}) %>");
+
 $('#recommended_item-<%=@product[:id]%>').html("<%= j (render partial: 'products/recommended_items', :locals => {:product=> @product}) %>");

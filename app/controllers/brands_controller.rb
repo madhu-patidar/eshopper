@@ -1,14 +1,11 @@
 class BrandsController < ApplicationController
-  before_action :set_brand, only: [:show]
+  before_action :set_brand, only: [:show, :index]
 
   # GET /brands
   # GET /brands.json
   def index
     @top_brands = Brand.brand_with_product
     @categories = Category.all
-    @category = Category.first
-    @brand = Brand.find(params[:id])
-    @sub_categories = @brand.categories
     @products = @brand.products
   end
 
@@ -17,9 +14,6 @@ class BrandsController < ApplicationController
     @categories = Category.all
     @category = Category.find(params[:category_id])
     @sub_categories = @brand.categories.where(category_id: params[:category_id]).order(:id)
-    if params.has_key?(:sub_category_id)
-      @sub1 = Category.find(params[:sub_category_id])
-    end
 
     if params[:sub_category_id].present?
       @sub = Category.find(params[:sub_category_id])
