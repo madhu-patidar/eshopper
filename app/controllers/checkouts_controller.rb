@@ -11,6 +11,7 @@ class CheckoutsController < ApplicationController
       @address = Address.new
     else
       redirect_to root_path
+    end
   end
 
   def review_payment
@@ -20,6 +21,7 @@ class CheckoutsController < ApplicationController
       @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
     else
       redirect_to root_path
+    end
   end
 
 end
