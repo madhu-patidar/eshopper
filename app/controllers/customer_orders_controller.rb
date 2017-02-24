@@ -12,18 +12,18 @@ class CustomerOrdersController < ApplicationController
   end
 
 def create
-    @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
-     @amount = @total
-   if CustomerOrder.find_by(status: "pending").present?
-      @customer_order = CustomerOrder.find_by(status: "pending")
+    @cart_sub_total, @shipping_cost, @tax, @discount, @amount = amount(current_customer)
 
+     @customer_order = CustomerOrder.find_by(status: "pending", customer_id: current_customer.id )
+   if @customer_order.present?
       @customer_order.update(:customer_id => current_customer.id, :address_id =>params[:address_id], :status=> "pending", :grand_total => @amount, :shipping_charges => @shipping_cost)
       redirect_to payment_customer_order_path(@customer_order)
     else
-      @customer_order = CustomerOrder.new(:customer_id => current_customer.id, :address_id =>params[:address_id], :status=> "pending", :grand_total =>@amount, :shipping_charges => @shipping_cost)
+      @customer_order = CustomerOrder.new(:customer_id => current_customer.id, :address_id => params[:address_id], :status=> "pending", :grand_total => @amount, :shipping_charges => @shipping_cost)
       @customer_order.save
       redirect_to payment_customer_order_path(@customer_order)
     end
+
     end 
   end
   
@@ -49,7 +49,7 @@ def create
 
   def payment
     @cart_items = current_customer.cart_items
-    @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
+    @cart_sub_total, @shipping_cost, @tax, @discount, @total = amount(current_customer)
     @amount = @total
   end
 

@@ -2,19 +2,18 @@
   <div class="container">
     <div class="row">
       <%= render "components/left_side_bar"%>
-       <div class="col-sm-9 padding-right">
+      <div class="col-sm-9 padding-right">
         <div class="category-tab"><!--category-tab-->
           <div class="col-sm-12">
             <ul class="nav nav-tabs" id="brans-categories">
-             <%= render "brand_categories", sub1: @sub %>
-           </ul>
+              <%= render "brand_categories", sub: @sub %>
+            </ul>
           </div>
           <div class="tab-content" id="brand-products">
            <%= render "brand_products"%>
           </div>
         </div><!--/category-tab-->
-     
-      <%= render "components/recommended" %>
-    </div><!--/recommended_items-->
+      </div><!--/recommended_items-->
+    </div>
   </div>
-</div>
+</section>

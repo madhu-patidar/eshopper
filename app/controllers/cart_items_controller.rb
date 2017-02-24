@@ -14,12 +14,8 @@ class CartItemsController < ApplicationController
   def create
     quantity = 1
 
-    if params[:controller_name].present? && params[:cart_item][:quantity].present?
-      quantity = params[:cart_item][:quantity].to_i
-    end
-
     @product = Product.find(params[:product_id])
-    @cart_item = CartItem.find_by(product_id: params[:product_id], customer_id:current_customer.id)
+    @cart_item = CartItem.find_by(product_id: params[:product_id], customer_id: current_customer.id)
     
     if @cart_item.present?
       @cart_item.quantity += quantity

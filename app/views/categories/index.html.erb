@@ -1,12 +1,11 @@
 <div class="col-sm-12">
   <ul class="nav nav-tabs">
-      <% if @category.name == "MENS"%>
-       <%@category.sub_categories.each do |subcategory| %>
-          <li class="<%= subcategory.status == "active" ? 'active' : '' %>">
-            <%= link_to("#") do %><%= subcategory.name %><% end %>
-          </li>
-        <% end %>
-     
+    <% if @category.name == "MENS"%>
+      <% @category.sub_categories.each do |subcategory| %>
+        <li class="<%= subcategory.status == "active" ? 'active' : '' %>">
+          <%= link_to("#") do %><%= subcategory.name %><% end %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>

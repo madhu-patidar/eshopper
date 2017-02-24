@@ -6,14 +6,20 @@ class CheckoutsController < ApplicationController
   before_action :set_checkout, only: [:edit, :update, :destroy]
 
   def index
-    @customer_addresses = current_customer.addresses
-    @address = Address.new
+    if current_customer.cart_items.count > 0
+      @customer_addresses = current_customer.addresses
+      @address = Address.new
+    else
+      redirect_to root_path
   end
 
   def review_payment
-    @address = Address.find(params[:address_id])
-    review(params)
-    @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
+    if current_customer.cart_items.count > 0
+      @address = Address.find(params[:address_id])
+      review(params)
+      @cart_sub_total, @shipping_cost1, @tax, @discount, @total = amount(current_customer)
+    else
+      redirect_to root_path
   end
 
 end

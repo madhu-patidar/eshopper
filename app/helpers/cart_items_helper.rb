@@ -1,6 +1,7 @@
 module CartItemsHelper
   
    def amount(current_customer)
+    
     cart_sub_total, discount = 0,0
     tax_percent = 1
     current_customer.cart_items.each do |item|

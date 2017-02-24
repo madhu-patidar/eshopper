@@ -2603,5 +2603,12 @@ h2.title {
   color:white;
 }
 .bar-size p{
-  color:black; 
+  color:black;
+}
+
+#error_explanation li{
+  color: red;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
 }

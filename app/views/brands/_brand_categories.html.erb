@@ -10,7 +10,7 @@
           <%= link_to(category_brand_path(sub_category_id: subcategory.id)) do %>
             <% if subcategory.name.start_with?('<') %>
               <%= subcategory.name.split(">")[1] %>
-            <% elsif %>
+            <% else %>
               <%= subcategory.name %>
             <% end %>
           <% end %>

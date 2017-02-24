@@ -1,5 +1,5 @@
-$('#product-list-<%=@product[:id]%>').html("<%= escape_javascript(render partial: 'components/content', :locals => { :product=> @product})
- %>");
+$('#product-list-<%=@product[:id]%>').html("<%= escape_javascript(render partial: 'components/content', :locals => { :product=> @product})%>");
+
 $('#cart-item-count').html(" (" +<%= @cart_items.count %>+ ") ");
 
 $('#wish-list-item-<%=@wish_list[:id]%>').html("<%= j (render partial: 'wish_lists/wish_list_item', :locals => {:item => @wish_list}) %>");
