@@ -31,7 +31,7 @@ class ChargesController < ApplicationController
 
       if session[:applied_coupon].present?
         coupon = Coupon.find_by(code: session[:applied_coupon])
-        coupon.no_uses += 1
+        coupon.no_of_uses += 1
         coupon.save
         coupon.used_coupons.create(customer_id: current_customer.id, customer_order_id: customer_order.id)
         session[:applied_coupon] = nil
