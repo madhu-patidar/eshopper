@@ -14,7 +14,7 @@ class CustomerOrder < ActiveRecord::Base
     self.track_orders.create(status: status)
   end
 
-  scope :month_success_order,  -> { where(status: "success").group_by{|u| u.created_at.strftime("%Y %B")} }
+  scope :month_success_order,  -> { where.not(status: ["cancel", "pending"]).group_by{|u| u.created_at.strftime("%Y %B")} }
 
   scope :month_pending_order,  -> { where(status: "pending").group_by{|u| u.created_at.strftime("%Y %B")} }
   
