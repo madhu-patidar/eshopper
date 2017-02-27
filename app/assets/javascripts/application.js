@@ -20,7 +20,6 @@
 //= require_tree .
 //= require highcharts
 //= require data
-//= require drilldown
 
 
 
