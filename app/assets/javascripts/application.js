@@ -17,9 +17,9 @@
 //= require country_state_select
 //= require chosen-jquery
 //= require scaffold
-//= require_tree .
-//= require highcharts
 //= require data
+//= require highcharts
+//= require_tree .
 
 
 
