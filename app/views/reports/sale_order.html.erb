@@ -65,11 +65,11 @@
     },
     series: [{
       name: 'Success Orders',
-      data: <%= @success_order_month.values.map {|val| val*100} %>
+      data: <%= @success_order_month.values %>
 
     }, {
       name: 'Pending Orders',
-      data: <%= @pending_order_month.values.map {|val| val*100} %>
+      data: <%= @pending_order_month.values %>
 
     }]
   });

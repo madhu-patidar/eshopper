@@ -8,20 +8,21 @@ class ReportsController < ApplicationController
     customer_success_orders = CustomerOrder.month_success_order
     customer_pending_orders = CustomerOrder.month_pending_order
     @sale_order_year = CustomerOrder.all.group_by{|u| u.created_at.strftime("%Y")}
-    @success_order_month = @hash
+    @success_order_month = @second_hash
     @pending_order_month = @hash
-
-    customer_success_orders.each do |orders|
-      if @success_order_month.keys.include?(orders[0])
-        @success_order_month[orders[0]] = orders[1].count
+    customer_success_orders.each do |success_orders|
+      if @success_order_month.keys.include?(success_orders[0])
+        @success_order_month[success_orders[0]] = success_orders[1].count
       end
     end
 
+
     customer_pending_orders.each do |orders|
-      if @pending_order_month.keys.include?(coupon[0])
+      if @pending_order_month.keys.include?(orders[0])
         @pending_order_month[orders[0]] = orders[1].count
       end
     end
+
   end
 
   def customer_registered
@@ -76,6 +77,19 @@ class ReportsController < ApplicationController
               "#{@year} November" => 0,
               "#{@year} December" => 0
             }
+    @second_hash = { "#{@year} January" => 0,
+      "#{@year} February" => 0,
+      "#{@year} March" => 0,
+      "#{@year} April" => 0,
+      "#{@year} May" => 0 ,
+      "#{@year} June"=> 0,
+      "#{@year} July" => 0,
+      "#{@year} August" => 0,
+      "#{@year} September" => 0,
+      "#{@year} October" => 0,
+      "#{@year} November" => 0,
+      "#{@year} December" => 0
+    }
   end
 
 end
