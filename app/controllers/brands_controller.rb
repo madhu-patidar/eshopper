@@ -4,14 +4,10 @@ class BrandsController < ApplicationController
   # GET /brands
   # GET /brands.json
   def index
-    @top_brands = Brand.brand_with_product
-    @categories = Category.all
     @products = @brand.products
   end
 
   def show
-    @top_brands = Brand.brand_with_product
-    @categories = Category.all
     @category = Category.find(params[:category_id])
     @sub_categories = @brand.categories.where(category_id: params[:category_id]).order(:id)
 
@@ -32,6 +28,8 @@ class BrandsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_brand
       @brand = Brand.find(params[:id])
+      @top_brands = Brand.brand_with_product
+      @categories = Category.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

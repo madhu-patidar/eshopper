@@ -16,16 +16,13 @@
               <ul class="nav nav-pills">
                 <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
                 <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-
-                <% if customer_signed_in? %>
-                  <% if current_customer.admin == true%>
+                  <% if customer_signed_in? &&current_customer.admin == true%>
                     <li>
                       <%= link_to(rails_admin_path) do%>
                         <i class="fa fa-user"></i> Admin
                       <%end%>
                     </li>
                   <% end %>
-                <% end %>
               </ul>
             </div>
           </div>
@@ -64,25 +61,15 @@
             </div>
             <div class="shop-menu pull-right">
               <ul class="nav navbar-nav collapse navbar-collapse">
-               
-                <% if current_page?wish_lists_path %>
-                  <% active1 = "active" %>
-                <% else %>
-                  <% active1 = ""%> 
-                <%end%>
-
-                <li><%= link_to(wish_lists_path, class: "#{active1}") do %>
+                <% active_wish_list = ""%>
+                <% active_wish_list = "active" if current_page?wish_lists_path %>
+                <li><%= link_to(wish_lists_path, class: "#{active_wish_list}") do %>
                     <i class="fa fa-star"></i> Wishlist<span id="wish-list-item-count"><% if customer_signed_in? && current_customer.wish_lists.present? %> (<%= current_customer.wish_lists.count %>)<% end %></span>
                   <% end %></li>
-                
-                <% if current_page?cart_items_path %>
-                  <% active1 = "active" %>
-                <% else %>
-                  <% active1 = ""%> 
-                <%end%>
-
+                <% active_cart = ""%>
+                <% active_cart = "active" if current_page?cart_items_path %>
                 <li>
-                  <%= link_to(cart_items_path, class: "#{active1}") do %>
+                  <%= link_to(cart_items_path, class: "#{active_cart}") do %>
                     <i class="fa fa-shopping-cart"></i> Cart<span id="cart-item-count"><% if customer_signed_in? && current_customer.cart_items.present? %> (<%= current_customer.cart_items.count %>)<% end %></span>
                   <% end %>
                 </li>
@@ -93,20 +80,19 @@
                   </li>
                   <li>
                     <% if current_customer.first_name.present? %>
-                      <%= link_to("#") do %><% end %>
                        <li class="dropdown"><a href="#">
                         <%= current_customer.first_name %>
                         <i class="fa fa-angle-down"></i></a>
                         <ul role="menu" class="sub-menu">
-                            <li><%= link_to(customer_orders_path) do %>My Order<% end %></li><br>
-                            <li><%= link_to(wish_lists_path) do %> Wishlist <% end %></li> <br>
-                            <li><%=link_to(cart_items_path) do %>Cart<% end %></li><br>
-                            <li><%= link_to "Edit Profile", edit_registration_path(current_customer) %><br />
-  </li> 
+                          <li><%= link_to(customer_orders_path) do %>My Order<% end %></li><br>
+                          <li><%= link_to(wish_lists_path) do %> Wishlist <% end %></li> <br>
+                          <li><%=link_to(cart_items_path) do %>Cart<% end %></li><br>
+                          <li><%= link_to "Edit Profile", edit_registration_path(current_customer) %><br />
+                          </li> 
                         </ul>
                       </li>
                     <% else %>
-                      <%= link_to("#") do %><% end %>
+                      <%= link_to("#")%>
                        <li class="dropdown"><a href="#">
                         <%= current_customer.email %>
                         <i class="fa fa-angle-down"></i></a>
@@ -161,8 +147,21 @@
 
                       <ul class="nav navbar-nav collapse navbar-collapse">
                         <li><%= link_to "Home", root_path, class: "#{active}" %></li>
-                        <li class="dropdown"><a href="#"> 
                         <li><%= link_to(contacts_path) do %>Contact<% end %></li>
+                        <li>
+                          <% if customer_signed_in? &&current_customer.admin == true%>
+                            <li class="dropdown"><a href="#">
+                              Report
+                              <i class="fa fa-angle-down"></i></a>
+                              <ul role="menu" class="sub-menu">
+                                <li><%= link_to(reports_sale_order_path(year: DateTime.now.strftime("%Y"))) do %>sale Order<% end %></li>
+                                <li><%=link_to(reports_customer_registered_path(year: DateTime.now.strftime("%Y"))) do %> Customer Registered <% end %></li> 
+                                <li><%= link_to "Used Coupons", reports_coupons_used_path(year: DateTime.now.strftime("%Y")) %>
+                                </li> 
+                              </ul>
+                            </li>
+                          <% end %>  
+                        </li> 
                       </ul>
                     </div>
                   </div>

@@ -18,6 +18,9 @@
 //= require chosen-jquery
 //= require scaffold
 //= require_tree .
+//= require highcharts
+//= require data
+//= require drilldown
 
 
 
@@ -41,7 +44,7 @@ function update_quantity(cart_item_id,product_id,min,max,qty)
   };
 };
 
-function show(url) 
+function show_image(url) 
 {
   $("#original-image").attr("src", url); 
 };
@@ -49,9 +52,4 @@ function show(url)
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
 });
-// $(document).on('ready page:load', function() {
-//   return CountryStateSelect({
-//     country_id: "address_country",
-//     state_id: "address_state"
-//   });
-// });
+

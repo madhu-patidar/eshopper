@@ -1,6 +1,5 @@
 class Customer < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+ 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook,:google_oauth2,:twitter]
 
@@ -22,6 +21,8 @@ class Customer < ActiveRecord::Base
       customer.password = Devise.friendly_token[0,20]
       customer.first_name = auth.info.name
       customer.admin = false
-    end 
+    end
   end
+
+  scope :registered_customer_monthly,  -> { where(admin: false).group_by{|u| u.created_at.strftime("%Y %B")} }
 end

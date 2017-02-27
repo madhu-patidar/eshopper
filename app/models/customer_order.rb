@@ -1,4 +1,5 @@
 class CustomerOrder < ActiveRecord::Base
+  
   belongs_to :customer
   belongs_to :address
   has_many :order_details, dependent: :destroy
@@ -12,5 +13,9 @@ class CustomerOrder < ActiveRecord::Base
   def create_record
     self.track_orders.create(status: status)
   end
+
+  scope :month_success_order,  -> { where(status: "success").group_by{|u| u.created_at.strftime("%Y %B")} }
+
+  scope :month_pending_order,  -> { where(status: "pending").group_by{|u| u.created_at.strftime("%Y %B")} }
   
 end

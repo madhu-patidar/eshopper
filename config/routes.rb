@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
 
   
+  get 'reports/sale_order'
+
+  get 'reports/customer_registered'
+
+  get 'reports/coupons_used'
+
   get 'coupons/create'
 
   get 'coupons/destroy'
+  
 
   resources :contacts
 

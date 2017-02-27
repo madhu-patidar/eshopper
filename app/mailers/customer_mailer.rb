@@ -8,4 +8,5 @@ class CustomerMailer < ApplicationMailer
     attachments.inline["logo.png"] = File.read("app/assets/images/home/logo.png")
     mail(to: @customer.email, subject: 'Welcome to E-Shopper')
   end
+  
 end

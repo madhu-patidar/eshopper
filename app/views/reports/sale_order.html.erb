@@ -1,0 +1,76 @@
+<div class="container mainmenu">
+  <ul class="nav navbar-nav collapse navbar-collapse">
+    <li>
+      <li class="dropdown"><a href="#">
+        Year
+        <i class="fa fa-angle-down"></i></a>
+        <ul role="menu" class="sub-menu">
+          <% @sale_order_year.each do |year| %>
+            <li>
+              <%= link_to(reports_sale_order_path(year: year[0])) do%>
+              <%= year[0] %><% end %><br>
+            </li>
+          <% end %>
+        </ul>
+      </li> 
+    </li> 
+  </ul>
+</div>
+<div id="sale-order-bar" style="min-width: 250px; height: 500px; margin-right: 150px;margin-left: 150px; auto"></div>
+
+<script>
+  Highcharts.chart('sale-order-bar', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Monthly Success/Pending Orders'
+    },
+    xAxis: {
+      categories: [
+        'January', 
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'  
+      ],
+      crosshair: true
+    },
+    yAxis: {
+      min: 0,
+      title: {
+          text: 'Success/Pending (orders)'
+      }
+    },
+    tooltip: {
+      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+      pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+          '<td style="padding:0"><b>{point.y} orders</b></td></tr>',
+      footerFormat: '</table>',
+      shared: true,
+      useHTML: true
+    },
+    plotOptions: {
+      column: {
+          pointPadding: 0.1,
+          borderWidth: 0
+      }
+    },
+    series: [{
+      name: 'Success Orders',
+      data: <%= @success_order_month.values.map {|val| val*100} %>
+
+    }, {
+      name: 'Pending Orders',
+      data: <%= @pending_order_month.values.map {|val| val*100} %>
+
+    }]
+  });
+</script>
