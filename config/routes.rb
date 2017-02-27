@@ -7,9 +7,11 @@ Rails.application.routes.draw do
 
   get 'reports/coupons_used'
 
-  get 'coupons/create'
 
   get 'coupons/destroy'
+  get 'coupons/create'
+
+  
   
 
   resources :contacts

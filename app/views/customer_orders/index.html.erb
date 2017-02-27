@@ -17,7 +17,7 @@
               <% second_address =  order.address.address_2 if order.address.address_2.present? %>
               <% address = "#{order.address.address_1}   #{second_address}   #{order.address.city} #{order.address.state}  #{order.address.country}  -  #{order.address.zipcode}" %>
 
-              <p><a href="" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= address %>"><%= order.address.name %> <i class="fa fa-caret-down" aria-hidden="true" style="color:black;"></i></a></p>
+              <p><a data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= address %>"><%= order.address.name %> <i class="fa fa-caret-down" aria-hidden="true" style="color:black;"></i></a></p>
             </div>
             <div class="col-sm-2">
               <p>Status</p>

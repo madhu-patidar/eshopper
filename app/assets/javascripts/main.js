@@ -4,7 +4,7 @@
   
 function use_coupon() 
 { 
-  var code = $("#coupon").val(); 
+  var code = $("#coupon").val();
   $.ajax({
       type: "GET",
       url: "/coupons/create",

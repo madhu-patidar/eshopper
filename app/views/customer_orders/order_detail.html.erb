@@ -123,38 +123,38 @@
 
           <%if @customer_order.status =="success" %>
             <div class="progress-bar progress-bar-info bar-size" role="progressbar">
-              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
+              <p><a title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
           </div>
 
           <% elsif @customer_order.status =="intransit"%>
             <div class="progress-bar progress-bar-info bar-size" role="progressbar">
-              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
+              <p><a title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
             </div>
             <div class="progress-bar progress-bar-warning bar-size" role="progressbar" >
-              <p ><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= intransit_date %>"> <strong> Intransit </strong></a></p>
+              <p ><a title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= intransit_date %>"> <strong> Intransit </strong></a></p>
             </div>
            <% elsif @customer_order.status =="shipped"%>
             <div class="progress-bar progress-bar-info bar-size" role="progressbar" >
-              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom"  data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
+              <p><a title="" data-toggle="popover" data-placement="bottom"  data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
             </div>
             <div class="progress-bar progress-bar-warning bar-size" role="progressbar" >
-              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= intransit_date %>"> <strong> Intransit </strong></a></p>
+              <p><a title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= intransit_date %>"> <strong> Intransit </strong></a></p>
             </div>
             <div class="progress-bar progress-bar-success bar-size" role="progressbar">
-              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= shipped_date %>"> <strong> Shipped </strong></a></p>
+              <p><a title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= shipped_date %>"> <strong> Shipped </strong></a></p>
             </div>
           <% elsif @customer_order.status =="delivered"%>
             <div class="progress-bar progress-bar-info bar-size" role="progressbar" >
-              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
+              <p><a title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= ordered_date %>"> <strong> Ordered </strong></a></p>
             </div>
             <div class="progress-bar progress-bar-warning bar-size" role="progressbar">
-              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= intransit_date %>"> <strong> Intransit </strong></a></p>
+              <p><a title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= intransit_date %>"> <strong> Intransit </strong></a></p>
             </div>
             <div class="progress-bar progress-bar-primary bar-size" role="progressbar">
-              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= shipped_date %>"> <strong> shipped </strong></a></p>
+              <p><a title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= shipped_date %>"> <strong> shipped </strong></a></p>
             </div>
             <div class="progress-bar progress-bar-success bar-size" role="progressbar" >
-              <p><a href="#" target="_self" title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= delivered_date %>"> <strong> Delivered </strong></a></p>
+              <p><a title="" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<%= delivered_date %>"> <strong> Delivered </strong></a></p>
             </div>
           <% end %>
         </div>
