@@ -16,7 +16,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-4 col-sm-offset-1">
-                 <%= link_to edit_address_path(address), style: "color: black", remote: true do %>
+                 <%= link_to edit_address_path(address), style: "color: black", remote: true, "data-toggle" =>"modal", "data-target" =>"#edit-address"  do %>
                 <i class="fa fa-pencil-square-o"></i>
                 <span>EDIT</span>
                 <% end %>
